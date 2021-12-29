@@ -1,6 +1,28 @@
 {
   "name": "react-milestones-vis",
   "version": "0.1.0",
+  "description": "React component for d3-milestones, a d3 based timeline visualization.",
+  "keywords": [
+    "react",
+    "d3",
+    "visualization",
+    "timeline"
+  ],
+  "homepage": "https://github.com/walterra/react-milestones-vis",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/walterra/react-milestones-vis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/walterra/react-milestones-vis/issues"
+  },
+  "license": "Apache-2.0",
+  "contributors": [
+    "Walter Rafelsberger <walter.rafelsberger@elastic.co>"
+  ],
+  "engines": {
+    "node": ">=16.3.0"
+  },
   "private": false,
   "main": "./build/index.js",
   "module": "./build/index.es.js",
@@ -46,6 +68,7 @@
     "@types/node": "^16.11.17",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "d3-milestones": "^1.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
