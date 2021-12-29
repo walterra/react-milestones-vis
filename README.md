@@ -140,6 +140,8 @@ export const Vikings = () => {
       timestamp: 'year'
     }}
     parseTime="%Y"
+    optimize
+    autoResize
   />;
 };
 ```
