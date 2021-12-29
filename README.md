@@ -1,4 +1,7 @@
-# Getting Started with React Milestones Vis
+# React Milestones Visualization
+
+<img src="https://github.com/walterra/d3-milestones/raw/main/src/stories/assets/vikings.png" />
+
 
 Visit the Storybook based demo: https://walterra.github.io/react-milestones-vis/
 
