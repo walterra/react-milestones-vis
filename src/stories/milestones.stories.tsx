@@ -6,7 +6,7 @@ import { Milestones } from '../components/milestones';
 import dataVikings from './vikings.json';
 
 export default {
-  title: 'Milestones',
+  title: 'react-milestones-vis',
   component: Milestones,
 } as ComponentMeta<typeof Milestones>;
 
