@@ -5725,10 +5725,10 @@ d3-interpolate@1:
   dependencies:
     d3-color "1"
 
-d3-milestones@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/d3-milestones/-/d3-milestones-1.2.1.tgz#a1907f39efba1bf513b368bdf92d71a8fae57688"
-  integrity sha512-aiFQPWw+tNjS/cPeKxCBfejrkI/4ZeMFD6osmzGMZ86+y3Hx4D8NxxU0fOh7yKmif3XD0+M03ZCMy3qCCFN+Hw==
+d3-milestones@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/d3-milestones/-/d3-milestones-1.2.2.tgz#03dd1eb609117090b256f23ad5083f3e009fa5a0"
+  integrity sha512-YIoaYjtVKITwYraWxVlvhMiVWuw8L49AxfliW4N/Vqc9sZdg+quZj6n0GfKR52hejxBF21eNF1qOa2KWc8Fmlw==
   dependencies:
     d3-array "^1.2.0"
     d3-collection "^1.0.4"
