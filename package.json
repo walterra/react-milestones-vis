@@ -1,6 +1,6 @@
 {
   "name": "react-milestones-vis",
-  "version": "0.3.1-node14",
+  "version": "0.3.2-node14",
   "description": "React component for d3-milestones, a d3 based timeline visualization.",
   "keywords": [
     "react",
@@ -31,7 +31,8 @@
     "test": "react-scripts test",
     "storybook": "start-storybook -p 6006",
     "deploy-storybook": "gh-pages -d storybook-static",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prepublish": "yarn build"
   },
   "browserslist": {
     "production": [

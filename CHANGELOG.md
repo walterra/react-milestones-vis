@@ -1,6 +1,10 @@
 ## [`main`](https://github.com/walterra/react-milestones-vis/tree/main)
 
-No public interface changes since `v0.3.1-node14`.
+No public interface changes since `v0.3.2-node14`.
+
+## [`v0.3.2-node14`](https://github.com/walterra/react-milestones-vis/tree/v0.3.2-node14)
+
+- Fix npm package.
 
 ## [`v0.3.1-node14`](https://github.com/walterra/react-milestones-vis/tree/v0.3.1-node14)
 
