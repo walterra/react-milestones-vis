@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useRef, useState, FC } from 'react';
 
-// @ts-expect-error Could not find a declaration file for module 'd3-milestones'.
+// @ts-ignore Could not find a declaration file for module 'd3-milestones'.
 import milestones from 'd3-milestones';
 
 import '../../../node_modules/d3-milestones/build/d3-milestones.css';
@@ -15,15 +15,32 @@ import {
   MilestonesOptions,
 } from './types';
 
+interface IMilestones {
+  aggregateBy: (d: MilestonesOptions['aggregateBy']) => IMilestones;
+  mapping: (d: MilestonesOptions['mapping']) => IMilestones;
+  optimize: (d: MilestonesOptions['optimize']) => IMilestones;
+  autoResize: (d: MilestonesOptions['autoResize']) => IMilestones;
+  orientation: (d: MilestonesOptions['orientation']) => IMilestones;
+  distribution: (d: MilestonesOptions['distribution']) => IMilestones;
+  parseTime: (d: MilestonesOptions['parseTime']) => IMilestones;
+  labelFormat: (d: MilestonesOptions['labelFormat']) => IMilestones;
+  useLabels: (d: MilestonesOptions['useLabels']) => IMilestones;
+  range: (d: MilestonesOptions['range']) => IMilestones;
+  onEventClick: (d: MilestonesOptions['onEventClick']) => IMilestones;
+  onEventMouseLeave: (d: MilestonesOptions['onEventMouseLeave']) => IMilestones;
+  onEventMouseOver: (d: MilestonesOptions['onEventMouseOver']) => IMilestones;
+  render: (d: unknown[]) => void;
+}
+
 /**
  * React Milestones Visualization
  */
 export const Milestones: FC<MilestonesOptions> = (props) => {
   const milestonesDivEl = useRef(null);
-  const [vis, setVis] = useState<ReturnType<milestones>>();
+  const [vis, setVis] = useState<IMilestones>();
 
   useEffect(() => {
-    setVis(milestones(milestonesDivEl.current));
+    setVis(milestones(milestonesDivEl.current) as IMilestones);
   }, []);
 
   useEffect(() => {
