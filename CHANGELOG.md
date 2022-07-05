@@ -1,6 +1,11 @@
 ## [`main`](https://github.com/walterra/react-milestones-vis/tree/main)
 
-No public interface changes since `v0.3.5-node14`.
+No public interface changes since `v0.4.0-node14`.
+
+## [`v0.4.0-node14`](https://github.com/walterra/react-milestones-vis/tree/v0.4.0-node14)
+
+- Update storybook with support for urlTarget and custom styles (9413d7a).
+- Updated `d3-milestones` to `v1.4.0` (b40f312).
 
 ## [`v0.3.5-node14`](https://github.com/walterra/react-milestones-vis/tree/v0.3.5-node14)
 
