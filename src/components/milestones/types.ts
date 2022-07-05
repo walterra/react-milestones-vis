@@ -4,6 +4,8 @@ const milestonesMappingKeys = [
   'timestamp',
   'text',
   'url',
+  'textStyle',
+  'titleStyle',
 ] as const;
 type MilestonesMappingKeys = typeof milestonesMappingKeys[number];
 type MilestonesMapping = Record<MilestonesMappingKeys, string>;
@@ -47,6 +49,11 @@ export const isRange = (arg: unknown): arg is MilestonesRange =>
   arg.length === 2 &&
   arg.every((d) => typeof d === 'number');
 
+const milestonesUrlTarget = ['_blank', '_self', '_parent', '_top'] as const;
+type MilestonesUrlTarget = typeof milestonesUrlTarget[number];
+export const isUrlTarget = (arg: unknown): arg is MilestonesUrlTarget =>
+  milestonesUrlTarget.includes(arg as MilestonesUrlTarget);
+
 export interface MilestonesOptions<T = unknown> {
   /**
    * Aggregation level of time.
@@ -80,6 +87,10 @@ export interface MilestonesOptions<T = unknown> {
    * Custom label format.
    */
   labelFormat?: string;
+  /**
+   * Target attribute for URLs.
+   */
+  urlTarget?: MilestonesUrlTarget;
   /**
    * Enable/disable label display.
    */
