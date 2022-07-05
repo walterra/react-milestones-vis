@@ -47,7 +47,7 @@
     ]
   },
   "dependencies": {
-    "d3-milestones": "^1.2.2"
+    "d3-milestones": "^1.4.0"
   },
   "peerDependencies": {
     "@types/react": "^17.0.38",
