@@ -6,6 +6,7 @@ export const getDefaults = (): MilestonesOptions => ({
   autoResize: true,
   orientation: 'horizontal',
   distribution: 'top-bottom',
+  urlTarget: '_self',
   useLabels: true,
   data: [],
 });

@@ -12,6 +12,7 @@ import {
   isOrientation,
   isPartialMapping,
   isRange,
+  isUrlTarget,
   MilestonesOptions,
 } from './types';
 
@@ -24,6 +25,7 @@ interface IMilestones {
   distribution: (d: MilestonesOptions['distribution']) => IMilestones;
   parseTime: (d: MilestonesOptions['parseTime']) => IMilestones;
   labelFormat: (d: MilestonesOptions['labelFormat']) => IMilestones;
+  urlTarget: (d: MilestonesOptions['urlTarget']) => IMilestones;
   useLabels: (d: MilestonesOptions['useLabels']) => IMilestones;
   range: (d: MilestonesOptions['range']) => IMilestones;
   onEventClick: (d: MilestonesOptions['onEventClick']) => IMilestones;
@@ -54,6 +56,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         distribution,
         parseTime,
         labelFormat,
+        urlTarget,
         useLabels,
         range,
         onEventClick,
@@ -70,6 +73,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
       isDistribution(distribution) && vis.distribution(distribution);
       typeof parseTime === 'string' && vis.parseTime(parseTime);
       typeof labelFormat === 'string' && vis.labelFormat(labelFormat);
+      isUrlTarget(urlTarget) && vis.urlTarget(urlTarget);
       typeof useLabels === 'boolean' && vis.useLabels(useLabels);
       isRange(range) && vis.range(range);
       typeof onEventClick === 'function' && vis.onEventClick(onEventClick);

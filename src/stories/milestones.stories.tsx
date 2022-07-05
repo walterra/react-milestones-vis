@@ -9,6 +9,7 @@ import dataVikings from '../../node_modules/d3-milestones/src/stories/assets/vik
 import dataOsCategoryLabels from '../../node_modules/d3-milestones/src/stories/assets/os-category-labels.json';
 import dataCovid19 from '../../node_modules/d3-milestones/src/stories/assets/covid19.json';
 import dataUltima from '../../node_modules/d3-milestones/src/stories/assets/ultima-series.json';
+import dataStyles from '../../node_modules/d3-milestones/src/stories/assets/styles.json';
 
 export default {
   title: 'react-milestones-vis',
@@ -28,6 +29,7 @@ MilestonesReleases.args = {
     text: 'detail',
     url: 'giturl',
   },
+  urlTarget: '_blank',
   data: dataMilestones,
 };
 
@@ -91,4 +93,16 @@ UltimaSeries.args = {
     text: 'title',
   },
   data: dataUltima,
+};
+
+export const Styles = Template.bind({});
+Styles.args = {
+  aggregateBy: 'year',
+  optimize: true,
+  parseTime: '%Y',
+  mapping: {
+    timestamp: 'year',
+    text: 'text',
+  },
+  data: dataStyles,
 };
