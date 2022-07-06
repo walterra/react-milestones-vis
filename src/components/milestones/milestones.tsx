@@ -42,8 +42,10 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
   const [vis, setVis] = useState<IMilestones>();
 
   useEffect(() => {
-    setVis(milestones(milestonesDivEl.current) as IMilestones);
-  }, []);
+    if (milestonesDivEl.current !== null) {
+      setVis(milestones(milestonesDivEl.current) as IMilestones);
+    }
+  }, [milestonesDivEl.current]);
 
   useEffect(() => {
     if (vis) {
