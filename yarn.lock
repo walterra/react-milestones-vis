@@ -6777,10 +6777,10 @@ d3-interpolate@1:
   dependencies:
     d3-color "1"
 
-d3-milestones@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/d3-milestones/-/d3-milestones-1.4.0.tgz#ee283d57ecceb096a4090908f375cb85c8665cae"
-  integrity sha512-JGgHSAr4eqkjzpfHBE4HyvUBP7W6TDGzvDNPrWRCn48Ztng7zX9zxX1G5QR6FD+zujUA10yHp/KXsnov0H2NYA==
+d3-milestones@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/d3-milestones/-/d3-milestones-1.4.2.tgz#bedcc98943013d1a0240b3afeffbd1b24d25f944"
+  integrity sha512-twpNTP1H6Qc8McUKxEv4cWLFAL8yaZwFN79X0gO8u3/UFKbsWqnxpskMe2Klo8mAdksJWGYYRqBjzmPHCsPR0Q==
   dependencies:
     d3-array "^1.2.0"
     d3-collection "^1.0.4"
