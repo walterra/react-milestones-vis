@@ -1,6 +1,10 @@
 ## [`main`](https://github.com/walterra/react-milestones-vis/tree/main)
 
-No public interface changes since `v0.5.0`.
+No public interface changes since `v0.6.0`.
+
+## [`v0.6.0`](https://github.com/walterra/react-milestones-vis/tree/v0.6.0)
+
+- Improve React 16/17 compatibility. ([#2](https://github.com/walterra/react-milestones-vis/pull/2))
 
 ## [`v0.5.0`](https://github.com/walterra/react-milestones-vis/tree/v0.5.0)
 
