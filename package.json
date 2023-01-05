@@ -21,7 +21,7 @@
     "Walter Rafelsberger <walter.rafelsberger@elastic.co>"
   ],
   "engines": {
-    "node": ">=16.3.0"
+    "node": ">=16.18.1"
   },
   "private": false,
   "main": "./build/index.js",
