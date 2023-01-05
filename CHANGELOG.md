@@ -1,6 +1,10 @@
 ## [`main`](https://github.com/walterra/react-milestones-vis/tree/main)
 
-No public interface changes since `v0.6.0`.
+No public interface changes since `v0.6.1`.
+
+## [`v0.6.1`](https://github.com/walterra/react-milestones-vis/tree/v0.6.1)
+
+- Updated `d3-milestones` to `v1.4.4` (62b906a).
 
 ## [`v0.6.0`](https://github.com/walterra/react-milestones-vis/tree/v0.6.0)
 
