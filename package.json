@@ -1,6 +1,6 @@
 {
   "name": "react-milestones-vis",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "React component for d3-milestones, a d3 based timeline visualization.",
   "keywords": [
     "react",
