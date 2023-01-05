@@ -5755,10 +5755,10 @@ d3-collection@^1.0.7:
   dependencies:
     d3-color "1 - 3"
 
-d3-milestones@^1.4.6:
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/d3-milestones/-/d3-milestones-1.4.6.tgz#2c96f2a79b6b04e51d48d58400372ab191edcc45"
-  integrity sha512-NGWiVTGAxHA7qiC/SfVPZUHPDxmD80sH/LW+/EmUW/26F01WCV03zWHWvFDec9RY002ktKZltXqy1jJAc/er1A==
+d3-milestones@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/d3-milestones/-/d3-milestones-1.4.7.tgz#a41bd50515b9b0ab6c926640e05d0a7d7efc85bc"
+  integrity sha512-EKq0TqWIx09CaiNm/LQl2fUR5hifGeKkZYhiykB6u6Z8vuRcQcJUiOZntDWEc48pZBh4uL2chaiYrbJPD5CK6g==
   dependencies:
     d3-array "^3.2.0"
     d3-collection "^1.0.7"
