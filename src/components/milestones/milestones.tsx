@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef, useState, FC } from 'react';
+import React, { useEffect, useRef, useState, FC } from 'react';
 
 // @ts-ignore Could not find a declaration file for module 'd3-milestones'.
 import milestones from 'd3-milestones';
@@ -31,6 +31,7 @@ interface IMilestones {
   onEventClick: (d: MilestonesOptions['onEventClick']) => IMilestones;
   onEventMouseLeave: (d: MilestonesOptions['onEventMouseLeave']) => IMilestones;
   onEventMouseOver: (d: MilestonesOptions['onEventMouseOver']) => IMilestones;
+  renderCallback: (d: MilestonesOptions['renderCallback']) => IMilestones;
   render: (d: unknown[]) => void;
 }
 
@@ -64,6 +65,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         onEventClick,
         onEventMouseLeave,
         onEventMouseOver,
+        renderCallback,
         data,
       } = { ...getDefaults(), ...props };
 
@@ -83,6 +85,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         vis.onEventMouseLeave(onEventMouseLeave);
       typeof onEventMouseOver === 'function' &&
         vis.onEventMouseOver(onEventMouseOver);
+      typeof renderCallback === 'function' && vis.renderCallback(renderCallback);
 
       vis.render(data);
     }

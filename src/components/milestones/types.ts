@@ -115,4 +115,8 @@ export interface MilestonesOptions<T = unknown> {
    * Optional label over handler
    */
   onEventMouseOver?: () => void;
+  /**
+   * Callback that executes after rendering is complete
+   */
+  renderCallback?: () => void;
 }
