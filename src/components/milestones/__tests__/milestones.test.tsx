@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { Milestones } from '../milestones';
 
 // Mock ResizeObserver before tests
@@ -61,5 +61,32 @@ describe('Milestones Component', () => {
     // that our React component rendered successfully
     expect(container.firstChild).toBeInTheDocument();
     expect(container.firstChild?.nodeName).toBe('DIV');
+  });
+
+  test('calls renderCallback after rendering', async () => {
+    // Create a mock function for renderCallback
+    const mockRenderCallback = jest.fn();
+
+    // Render component with the mock callback
+    const { container } = render(
+      <Milestones
+        data={vikingsData}
+        aggregateBy="year"
+        mapping={{
+          timestamp: 'year',
+          text: 'title',
+        }}
+        parseTime="%Y"
+        renderCallback={mockRenderCallback}
+      />
+    );
+
+    // Wait for all effects to complete
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
+
+    // Check if the callback was called
+    expect(mockRenderCallback).toHaveBeenCalled();
   });
 });
