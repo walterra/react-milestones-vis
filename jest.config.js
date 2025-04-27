@@ -1,0 +1,39 @@
+module.exports = {
+  projects: [
+    {
+      displayName: 'react-16',
+      testEnvironment: 'jsdom',
+      rootDir: './',
+      testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
+      setupFilesAfterEnv: ['<rootDir>/test/version-testing/setup-react-16.js'],
+      transform: {
+        '^.+\\.(ts|tsx)$': 'ts-jest',
+        '^.+\\.(js|jsx)$': 'babel-jest'
+      },
+      transformIgnorePatterns: [
+        '/node_modules/(?!d3-milestones).+\\.js$'
+      ],
+      moduleNameMapper: {
+        '\\.(css|less|scss|sass)$': '<rootDir>/test/version-testing/styleMock.js'
+      },
+    },
+    {
+      displayName: 'react-17',
+      testEnvironment: 'jsdom',
+      rootDir: './',
+      testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
+      setupFilesAfterEnv: ['<rootDir>/test/version-testing/setup-react-17.js'],
+      transform: {
+        '^.+\\.(ts|tsx)$': 'ts-jest',
+        '^.+\\.(js|jsx)$': 'babel-jest'
+      },
+      transformIgnorePatterns: [
+        '/node_modules/(?!d3-milestones).+\\.js$'
+      ],
+      moduleNameMapper: {
+        '\\.(css|less|scss|sass)$': '<rootDir>/test/version-testing/styleMock.js',
+        // Add additional module mappers for React 17 if needed
+      },
+    },
+  ],
+};
