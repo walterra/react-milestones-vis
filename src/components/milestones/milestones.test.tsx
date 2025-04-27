@@ -1,18 +1,6 @@
 import React from 'react';
-// We'll use the appropriate testing library based on the Jest environment
-import { Milestones } from '../milestones';
-
-let testingLibrary: any;
-
-// Check if we're running in React 16 or React 17 environment
-if (React.version.startsWith('16')) {
-  testingLibrary = require('@testing-library/react');
-} else {
-  // For React 17, use our custom adapter
-  testingLibrary = require('../../../../test/version-testing/testing-library-react-17');
-}
-
-const { render, act } = testingLibrary;
+import { render, act } from '@testing-library/react';
+import { Milestones } from './milestones';
 
 // Mock ResizeObserver before tests
 class ResizeObserverMock {
@@ -79,29 +67,6 @@ describe('Milestones Component', () => {
     // Create a mock function for renderCallback
     const mockRenderCallback = jest.fn();
 
-    // For React 17, we need to handle this differently
-    if (React.version.startsWith('17')) {
-      // Just test that our component renders without errors
-      const { container } = render(
-        <Milestones
-          data={vikingsData}
-          aggregateBy="year"
-          mapping={{
-            timestamp: 'year',
-            text: 'title',
-          }}
-          parseTime="%Y"
-          renderCallback={mockRenderCallback}
-        />
-      );
-      
-      // For React 17, we'll skip the callback check since our test adapter
-      // doesn't properly handle the component lifecycle for callbacks
-      expect(container.firstChild).toBeTruthy();
-      return;
-    }
-    
-    // React 16 version of the test
     const { container } = render(
       <Milestones
         data={vikingsData}
