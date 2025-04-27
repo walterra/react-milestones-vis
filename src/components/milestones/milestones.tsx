@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef, useState, FC } from 'react';
+import React, { useEffect, useRef, useState, FC } from 'react';
 
 // @ts-ignore Could not find a declaration file for module 'd3-milestones'.
 import milestones from 'd3-milestones';
@@ -12,6 +12,7 @@ import {
   isOrientation,
   isPartialMapping,
   isRange,
+  isScaleType,
   isUrlTarget,
   MilestonesOptions,
 } from './types';
@@ -23,6 +24,7 @@ interface IMilestones {
   autoResize: (d: MilestonesOptions['autoResize']) => IMilestones;
   orientation: (d: MilestonesOptions['orientation']) => IMilestones;
   distribution: (d: MilestonesOptions['distribution']) => IMilestones;
+  scaleType: (d: MilestonesOptions['scaleType']) => IMilestones;
   parseTime: (d: MilestonesOptions['parseTime']) => IMilestones;
   labelFormat: (d: MilestonesOptions['labelFormat']) => IMilestones;
   urlTarget: (d: MilestonesOptions['urlTarget']) => IMilestones;
@@ -31,6 +33,7 @@ interface IMilestones {
   onEventClick: (d: MilestonesOptions['onEventClick']) => IMilestones;
   onEventMouseLeave: (d: MilestonesOptions['onEventMouseLeave']) => IMilestones;
   onEventMouseOver: (d: MilestonesOptions['onEventMouseOver']) => IMilestones;
+  renderCallback: (d: MilestonesOptions['renderCallback']) => IMilestones;
   render: (d: unknown[]) => void;
 }
 
@@ -56,6 +59,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         autoResize,
         orientation,
         distribution,
+        scaleType,
         parseTime,
         labelFormat,
         urlTarget,
@@ -64,6 +68,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         onEventClick,
         onEventMouseLeave,
         onEventMouseOver,
+        renderCallback,
         data,
       } = { ...getDefaults(), ...props };
 
@@ -73,6 +78,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
       typeof autoResize === 'boolean' && vis.autoResize(autoResize);
       isOrientation(orientation) && vis.orientation(orientation);
       isDistribution(distribution) && vis.distribution(distribution);
+      isScaleType(scaleType) && vis.scaleType(scaleType);
       typeof parseTime === 'string' && vis.parseTime(parseTime);
       typeof labelFormat === 'string' && vis.labelFormat(labelFormat);
       isUrlTarget(urlTarget) && vis.urlTarget(urlTarget);
@@ -83,6 +89,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         vis.onEventMouseLeave(onEventMouseLeave);
       typeof onEventMouseOver === 'function' &&
         vis.onEventMouseOver(onEventMouseOver);
+      typeof renderCallback === 'function' && vis.renderCallback(renderCallback);
 
       vis.render(data);
     }

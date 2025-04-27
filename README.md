@@ -14,6 +14,7 @@
 ```jsx
 import { Milestones } from 'react-milestones-vis';
 
+// Time-based example
 export const Vikings = () => <Milestones
   aggregateBy="year"
   data={[
@@ -36,6 +37,31 @@ export const Vikings = () => <Milestones
     timestamp: 'year'
   }}
   parseTime="%Y"
+  optimize
+/>;
+
+// Ordinal scale example
+export const ProjectSteps = () => <Milestones
+  scaleType="ordinal"
+  data={[
+    {
+      step: 'Step 1',
+      detail: 'Planning phase',
+    },
+    {
+      step: 'Step 2',
+      detail: 'Research phase',
+    },
+    {
+      step: 'Step 3',
+      detail: 'Development phase',
+    },
+    ...
+  ]}
+  mapping={{
+    value: 'step',
+    text: 'detail'
+  }}
   optimize
 />;
 ```
