@@ -89,4 +89,36 @@ describe('Milestones Component', () => {
     // Check if the callback was called
     expect(mockRenderCallback).toHaveBeenCalled();
   });
+
+  test('renders with ordinal scale', () => {
+    const ordinalData = [
+      {
+        value: 1,
+        description: 'First milestone',
+      },
+      {
+        value: 2,
+        description: 'Second milestone',
+      },
+      {
+        value: 3,
+        description: 'Third milestone',
+      }
+    ];
+
+    const { container } = render(
+      <Milestones
+        data={ordinalData}
+        scaleType="ordinal"
+        mapping={{
+          value: 'value',
+          text: 'description',
+        }}
+      />
+    );
+    
+    // Verify the div container is rendered with ordinal scale
+    expect(container.firstChild).toBeInTheDocument();
+    expect(container.firstChild?.nodeName).toBe('DIV');
+  });
 });
