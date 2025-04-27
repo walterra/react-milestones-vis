@@ -1,6 +1,8 @@
 ## [`main`](https://github.com/walterra/react-milestones-vis/tree/main)
 
 - Updated `d3-milestones` to `v1.5.0`.
+- Added support for `renderCallback`.
+- Added support for ordinal scales as an alternative to time scales.
 
 ## [`v0.6.5`](https://github.com/walterra/react-milestones-vis/tree/v0.6.5)
 

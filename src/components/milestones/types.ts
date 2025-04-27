@@ -1,7 +1,8 @@
 const milestonesMappingKeys = [
   'category',
   'entries',
-  'timestamp',
+  'timestamp', // Used for time scale
+  'value',     // Used for ordinal scale
   'text',
   'url',
   'textStyle',
@@ -54,13 +55,18 @@ type MilestonesUrlTarget = typeof milestonesUrlTarget[number];
 export const isUrlTarget = (arg: unknown): arg is MilestonesUrlTarget =>
   milestonesUrlTarget.includes(arg as MilestonesUrlTarget);
 
+const milestonesScaleType = ['time', 'ordinal'] as const;
+type MilestonesScaleType = typeof milestonesScaleType[number];
+export const isScaleType = (arg: unknown): arg is MilestonesScaleType =>
+  milestonesScaleType.includes(arg as MilestonesScaleType);
+
 export interface MilestonesOptions<T = unknown> {
   /**
    * Aggregation level of time.
    */
   aggregateBy?: MilestonesAggregateBy;
   /**
-   * Map attributes to timestamp and text.
+   * Map attributes to timestamp/value and text.
    */
   mapping?: Partial<MilestonesMapping>;
   /**
@@ -79,6 +85,10 @@ export interface MilestonesOptions<T = unknown> {
    * Layout orientation, `horizontal` (default) and `vertical` are available.
    */
   distribution?: MilestonesDistribution;
+  /**
+   * Scale type, `time` (default) or `ordinal` are available.
+   */
+  scaleType?: MilestonesScaleType;
   /**
    * Custom time parser.
    */

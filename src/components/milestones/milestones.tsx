@@ -12,6 +12,7 @@ import {
   isOrientation,
   isPartialMapping,
   isRange,
+  isScaleType,
   isUrlTarget,
   MilestonesOptions,
 } from './types';
@@ -23,6 +24,7 @@ interface IMilestones {
   autoResize: (d: MilestonesOptions['autoResize']) => IMilestones;
   orientation: (d: MilestonesOptions['orientation']) => IMilestones;
   distribution: (d: MilestonesOptions['distribution']) => IMilestones;
+  scaleType: (d: MilestonesOptions['scaleType']) => IMilestones;
   parseTime: (d: MilestonesOptions['parseTime']) => IMilestones;
   labelFormat: (d: MilestonesOptions['labelFormat']) => IMilestones;
   urlTarget: (d: MilestonesOptions['urlTarget']) => IMilestones;
@@ -57,6 +59,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         autoResize,
         orientation,
         distribution,
+        scaleType,
         parseTime,
         labelFormat,
         urlTarget,
@@ -75,6 +78,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
       typeof autoResize === 'boolean' && vis.autoResize(autoResize);
       isOrientation(orientation) && vis.orientation(orientation);
       isDistribution(distribution) && vis.distribution(distribution);
+      isScaleType(scaleType) && vis.scaleType(scaleType);
       typeof parseTime === 'string' && vis.parseTime(parseTime);
       typeof labelFormat === 'string' && vis.labelFormat(labelFormat);
       isUrlTarget(urlTarget) && vis.urlTarget(urlTarget);
