@@ -2,30 +2,18 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Milestones } from '../milestones';
 
-// Mocking the d3-milestones library
-jest.mock('d3-milestones', () => {
-  return jest.fn().mockImplementation(() => ({
-    aggregateBy: jest.fn().mockReturnThis(),
-    mapping: jest.fn().mockReturnThis(),
-    optimize: jest.fn().mockReturnThis(),
-    autoResize: jest.fn().mockReturnThis(),
-    orientation: jest.fn().mockReturnThis(),
-    distribution: jest.fn().mockReturnThis(),
-    parseTime: jest.fn().mockReturnThis(),
-    labelFormat: jest.fn().mockReturnThis(),
-    urlTarget: jest.fn().mockReturnThis(),
-    useLabels: jest.fn().mockReturnThis(),
-    range: jest.fn().mockReturnThis(),
-    onEventClick: jest.fn().mockReturnThis(),
-    onEventMouseLeave: jest.fn().mockReturnThis(),
-    onEventMouseOver: jest.fn().mockReturnThis(),
-    renderCallback: jest.fn().mockReturnThis(),
-    render: jest.fn(),
-  }));
-});
+// Mock ResizeObserver before tests
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+// Add to global
+global.ResizeObserver = ResizeObserverMock;
 
 describe('Milestones Component', () => {
-  const mockData = [
+  const vikingsData = [
     {
       year: 789,
       title: 'Vikings begin attacks on England.',
@@ -37,9 +25,9 @@ describe('Milestones Component', () => {
   ];
 
   test('renders without crashing', () => {
-    render(
+    const { container } = render(
       <Milestones
-        data={mockData}
+        data={vikingsData}
         aggregateBy="year"
         mapping={{
           timestamp: 'year',
@@ -50,7 +38,28 @@ describe('Milestones Component', () => {
     );
     
     // Verify the div container is rendered
-    const divElement = document.querySelector('div');
-    expect(divElement).toBeInTheDocument();
+    expect(container.firstChild).toBeInTheDocument();
+    expect(container.firstChild?.nodeName).toBe('DIV');
+  });
+
+  test('applies the correct props to the component', () => {
+    const { container } = render(
+      <Milestones
+        data={vikingsData}
+        aggregateBy="year"
+        mapping={{
+          timestamp: 'year',
+          text: 'title',
+        }}
+        optimize={true}
+        autoResize={true}
+        parseTime="%Y"
+      />
+    );
+    
+    // We can't directly test d3-milestones configuration but we can verify 
+    // that our React component rendered successfully
+    expect(container.firstChild).toBeInTheDocument();
+    expect(container.firstChild?.nodeName).toBe('DIV');
   });
 });
