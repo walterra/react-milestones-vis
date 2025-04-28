@@ -1,0 +1,30 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.tsserver.pluginPaths": ["typescript-plugin-css-modules"],
+  
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  
+  // File-specific TS configuration
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  // Use test config for test files
+  "typescript.tsdk.workspaceFolder": {
+    "**/*.test.ts": {
+      "typescript.tsconfig": "tsconfig.test.json"
+    },
+    "**/*.test.tsx": {
+      "typescript.tsconfig": "tsconfig.test.json"
+    },
+    "src/setupTests.ts": {
+      "typescript.tsconfig": "tsconfig.test.json"
+    }
+  }
+}

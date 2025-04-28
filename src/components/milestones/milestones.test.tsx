@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
-import { Milestones } from '../milestones';
+import { render, waitFor } from '@testing-library/react';
+import { Milestones } from './milestones';
+
+const reactVersion = parseInt(React.version.split('.')[0], 10);
 
 // Mock ResizeObserver before tests
 class ResizeObserverMock {
@@ -11,6 +13,15 @@ class ResizeObserverMock {
 
 // Add to global
 global.ResizeObserver = ResizeObserverMock;
+
+// Helper to run tests conditionally based on React version
+function testForReact18(name: string, testFn: any) {
+  if (reactVersion >= 18) {
+    test(name, testFn);
+  } else {
+    test.skip(`${name} (requires React 18)`, () => {});
+  }
+}
 
 describe('Milestones Component', () => {
   const vikingsData = [
@@ -42,6 +53,25 @@ describe('Milestones Component', () => {
     expect(container.firstChild?.nodeName).toBe('DIV');
   });
 
+  testForReact18('renders without crashing with React 18 strict mode', () => {
+    const { container } = render(
+      <React.StrictMode>
+        <Milestones
+          data={vikingsData}
+          aggregateBy="year"
+          mapping={{
+            timestamp: 'year',
+            text: 'title',
+          }}
+          parseTime="%Y"
+        />
+      </React.StrictMode>
+    );
+    // Verify the div container is rendered
+    expect(container.firstChild).toBeInTheDocument();
+    expect(container.firstChild?.nodeName).toBe('DIV');
+  });
+
   test('applies the correct props to the component', () => {
     const { container } = render(
       <Milestones
@@ -67,7 +97,6 @@ describe('Milestones Component', () => {
     // Create a mock function for renderCallback
     const mockRenderCallback = jest.fn();
 
-    // Render component with the mock callback
     const { container } = render(
       <Milestones
         data={vikingsData}
@@ -81,13 +110,10 @@ describe('Milestones Component', () => {
       />
     );
 
-    // Wait for all effects to complete
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
+    await waitFor(() => {
+      // Check if the callback was called
+      expect(mockRenderCallback).toHaveBeenCalled();
     });
-
-    // Check if the callback was called
-    expect(mockRenderCallback).toHaveBeenCalled();
   });
 
   test('renders with ordinal scale', () => {
