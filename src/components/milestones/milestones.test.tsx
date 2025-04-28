@@ -2,6 +2,8 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Milestones } from './milestones';
 
+const reactVersion = parseInt(React.version.split('.')[0], 10);
+
 // Mock ResizeObserver before tests
 class ResizeObserverMock {
   observe() {}
@@ -11,6 +13,15 @@ class ResizeObserverMock {
 
 // Add to global
 global.ResizeObserver = ResizeObserverMock;
+
+// Helper to run tests conditionally based on React version
+function testForReact18(name: string, testFn: any) {
+  if (reactVersion >= 18) {
+    test(name, testFn);
+  } else {
+    test.skip(`${name} (requires React 18)`, () => {});
+  }
+}
 
 describe('Milestones Component', () => {
   const vikingsData = [
@@ -37,6 +48,25 @@ describe('Milestones Component', () => {
       />
     );
     
+    // Verify the div container is rendered
+    expect(container.firstChild).toBeInTheDocument();
+    expect(container.firstChild?.nodeName).toBe('DIV');
+  });
+
+  testForReact18('renders without crashing with React 18 strict mode', () => {
+    const { container } = render(
+      <React.StrictMode>
+        <Milestones
+          data={vikingsData}
+          aggregateBy="year"
+          mapping={{
+            timestamp: 'year',
+            text: 'title',
+          }}
+          parseTime="%Y"
+        />
+      </React.StrictMode>
+    );
     // Verify the div container is rendered
     expect(container.firstChild).toBeInTheDocument();
     expect(container.firstChild?.nodeName).toBe('DIV');
