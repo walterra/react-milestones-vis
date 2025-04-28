@@ -1,6 +1,7 @@
 // setup for React 17 tests
 jest.mock('react', () => require('react-17'));
 jest.mock('react-dom', () => require('react-dom-17'));
+jest.mock('@testing-library/react', () => require('testing-library-react-17'));
 
 // Import jest-dom matchers
 require('@testing-library/jest-dom');
