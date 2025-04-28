@@ -22,7 +22,6 @@
     "declarationDir": ".",
     "declaration": true,
     "outDir": "build",
-    "types": ["jest", "@testing-library/jest-dom"],
   },
   "include": [
     "src"
