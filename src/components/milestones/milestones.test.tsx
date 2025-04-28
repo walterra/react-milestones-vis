@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, act } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Milestones } from './milestones';
 
 // Mock ResizeObserver before tests
@@ -80,13 +80,10 @@ describe('Milestones Component', () => {
       />
     );
 
-    // Wait for all effects to complete
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
+    await waitFor(() => {
+      // Check if the callback was called
+      expect(mockRenderCallback).toHaveBeenCalled();
     });
-
-    // Check if the callback was called
-    expect(mockRenderCallback).toHaveBeenCalled();
   });
 
   test('renders with ordinal scale', () => {

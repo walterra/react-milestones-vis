@@ -1,6 +1,7 @@
 // setup for React 17 tests
 jest.mock('react', () => require('react-17'));
 jest.mock('react-dom', () => require('react-dom-17'));
+jest.mock('react-dom/test-utils', () => require('react-dom-17/test-utils'));
 jest.mock('@testing-library/react', () => require('testing-library-react-17'));
 
 // Log React version for verification
