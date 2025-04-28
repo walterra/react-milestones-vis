@@ -5,7 +5,10 @@ module.exports = {
       testEnvironment: 'jsdom',
       rootDir: './',
       testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
-      setupFilesAfterEnv: ['<rootDir>/test/version-testing/setup-react-16.js'],
+      setupFilesAfterEnv: [
+        '<rootDir>/src/setupTests.ts',
+        '<rootDir>/test/version-testing/setup-react-16.js'
+      ],
       transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
         '^.+\\.(js|jsx)$': 'babel-jest'
@@ -22,7 +25,10 @@ module.exports = {
       testEnvironment: 'jsdom',
       rootDir: './',
       testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
-      setupFilesAfterEnv: ['<rootDir>/test/version-testing/setup-react-17.js'],
+      setupFilesAfterEnv: [
+        '<rootDir>/src/setupTests.ts',
+        '<rootDir>/test/version-testing/setup-react-17.js'
+      ],
       transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
         '^.+\\.(js|jsx)$': 'babel-jest'
