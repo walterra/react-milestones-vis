@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { Milestones } from '../components/milestones';
 
@@ -11,98 +11,111 @@ import dataCovid19 from '../../node_modules/d3-milestones/src/stories/assets/cov
 import dataUltima from '../../node_modules/d3-milestones/src/stories/assets/ultima-series.json';
 import dataStyles from '../../node_modules/d3-milestones/src/stories/assets/styles.json';
 
-export default {
+const meta = {
   title: 'react-milestones-vis',
   component: Milestones,
-} as ComponentMeta<typeof Milestones>;
+} satisfies Meta<typeof Milestones>;
 
-const Template: ComponentStory<typeof Milestones> = (args) => (
-  <Milestones {...args} />
-);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const MilestonesReleases = Template.bind({});
-MilestonesReleases.args = {
-  optimize: true,
-  aggregateBy: 'day',
-  mapping: {
-    timestamp: 'timestamp',
-    text: 'detail',
-    url: 'giturl',
+export const MilestonesReleases: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    optimize: true,
+    aggregateBy: 'day',
+    mapping: {
+      timestamp: 'timestamp',
+      text: 'detail',
+      url: 'giturl',
+    },
+    urlTarget: '_blank',
+    data: dataMilestones,
   },
-  urlTarget: '_blank',
-  data: dataMilestones,
 };
 
-export const EventsAPI = Template.bind({});
-EventsAPI.args = {
-  optimize: true,
-  aggregateBy: 'day',
-  mapping: {
-    timestamp: 'timestamp',
-    text: 'detail',
+export const EventsAPI: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    optimize: true,
+    aggregateBy: 'day',
+    mapping: {
+      timestamp: 'timestamp',
+      text: 'detail',
+    },
+    data: dataMilestonesEvents,
   },
-  data: dataMilestonesEvents,
 };
 
-export const Vikings = Template.bind({});
-Vikings.args = {
-  aggregateBy: 'year',
-  mapping: {
-    timestamp: 'year',
-    text: 'title',
+export const Vikings: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    aggregateBy: 'year',
+    mapping: {
+      timestamp: 'year',
+      text: 'title',
+    },
+    optimize: true,
+    autoResize: true,
+    parseTime: '%Y',
+    data: dataVikings,
   },
-  optimize: true,
-  autoResize: true,
-  parseTime: '%Y',
-  data: dataVikings,
 };
 
-export const OsCategoryLabels = Template.bind({});
-OsCategoryLabels.args = {
-  optimize: true,
-  aggregateBy: 'year',
-  parseTime: '%Y',
-  mapping: {
-    category: 'system',
-    entries: 'versions',
-    timestamp: 'year',
-    text: 'title',
+export const OsCategoryLabels: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    optimize: true,
+    aggregateBy: 'year',
+    parseTime: '%Y',
+    mapping: {
+      category: 'system',
+      entries: 'versions',
+      timestamp: 'year',
+      text: 'title',
+    },
+    data: dataOsCategoryLabels,
   },
-  data: dataOsCategoryLabels,
 };
 
-export const COVID19 = Template.bind({});
-COVID19.args = {
-  optimize: true,
-  aggregateBy: 'day',
-  parseTime: '%Y-%m-%d',
-  mapping: {
-    timestamp: 'date',
-    text: 'title',
+export const COVID19: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    optimize: true,
+    aggregateBy: 'day',
+    parseTime: '%Y-%m-%d',
+    mapping: {
+      timestamp: 'date',
+      text: 'title',
+    },
+    data: dataCovid19,
   },
-  data: dataCovid19,
 };
 
-export const UltimaSeries = Template.bind({});
-UltimaSeries.args = {
-  aggregateBy: 'year',
-  optimize: true,
-  parseTime: '%Y',
-  mapping: {
-    timestamp: 'year',
-    text: 'title',
+export const UltimaSeries: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    aggregateBy: 'year',
+    optimize: true,
+    parseTime: '%Y',
+    mapping: {
+      timestamp: 'year',
+      text: 'title',
+    },
+    data: dataUltima,
   },
-  data: dataUltima,
 };
 
-export const Styles = Template.bind({});
-Styles.args = {
-  aggregateBy: 'year',
-  optimize: true,
-  parseTime: '%Y',
-  mapping: {
-    timestamp: 'year',
-    text: 'text',
+export const Styles: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    aggregateBy: 'year',
+    optimize: true,
+    parseTime: '%Y',
+    mapping: {
+      timestamp: 'year',
+      text: 'text',
+    },
+    data: dataStyles,
   },
-  data: dataStyles,
 };

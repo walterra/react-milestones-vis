@@ -1,15 +1,49 @@
-module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+const config = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  // staticDirs: ['../src/stories/assets'],
+
   addons: [
     '@storybook/addon-links',
-    {
-      name: '@storybook/addon-docs',
-      options: { transcludeMarkdown: true },
-    },
+    '@storybook/addon-docs',
     '@storybook/addon-essentials',
+    '@storybook/addon-mdx-gfm',
+    '@storybook/addon-webpack5-compiler-babel',
+    '@chromatic-com/storybook'
   ],
-  framework: '@storybook/react',
-  core: {
-    builder: 'webpack5',
+
+  framework: {
+    name: '@storybook/react-webpack5',
+    options: {},
   },
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: false,
+        esModuleInterop: false,
+      },
+      propFilter: () => true,
+    }
+  },
+
+  webpackFinal: async (config) => {
+    config.module.rules.push({
+      test: /\.less$/,
+      use: [
+        { loader: 'style-loader' },
+        { loader: 'css-loader', options: { modules: false } },
+        {
+          loader: 'less-loader',
+          options: { lessOptions: { javascriptEnabled: true } },
+        },
+      ],
+    });
+    config.optimization.minimize = false;
+    return config;
+  },
+
+  docs: {},
 };
+
+export default config;
