@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Milestones } from './milestones';
-import { svgToCanvas } from './__tests__/canvas-helper';
+import { htmlToCanvas } from './__tests__/canvas-helper';
 
 const reactVersion = parseInt(React.version.split('.')[0], 10);
 
@@ -186,7 +186,7 @@ describe('Milestones Component', () => {
     }
     
     // Convert HTML element to canvas and get buffer for snapshot testing
-    const canvas = await svgToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
+    const canvas = await htmlToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
     const buffer = canvas.toBuffer('image/png');
     
     // Expect the snapshot to match
@@ -255,7 +255,7 @@ describe('Milestones Component', () => {
     }
     
     // Convert HTML element to canvas and get buffer for snapshot testing
-    const canvas = await svgToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
+    const canvas = await htmlToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
     const buffer = canvas.toBuffer('image/png');
     
     // Expect the snapshot to match

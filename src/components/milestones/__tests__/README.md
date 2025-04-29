@@ -5,7 +5,7 @@ This directory contains visual snapshot tests for the Milestones component using
 ## How it works
 
 1. The tests render the Milestones component with fixed dimensions
-2. SVG output is converted to canvas using the HTML5 Canvas API
+2. Output is converted to canvas using the HTML5 Canvas API
 3. The canvas is then converted to a PNG buffer
 4. jest-image-snapshot compares the PNG to a baseline image
 
