@@ -1,18 +1,11 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Milestones } from './milestones';
+import { svgToCanvas } from './__tests__/canvas-helper';
 
 const reactVersion = parseInt(React.version.split('.')[0], 10);
 
-// Mock ResizeObserver before tests
-class ResizeObserverMock {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-}
-
-// Add to global
-global.ResizeObserver = ResizeObserverMock;
+// ResizeObserver is mocked in setupTests.ts
 
 // Helper to run tests conditionally based on React version
 function testForReact18(name: string, testFn: any) {
@@ -146,5 +139,131 @@ describe('Milestones Component', () => {
     // Verify the div container is rendered with ordinal scale
     expect(container.firstChild).toBeInTheDocument();
     expect(container.firstChild?.nodeName).toBe('DIV');
+  });
+  
+  testForReact18('captures visual snapshot of ordinal scale component', async () => {
+    // Use fixed dimensions for consistent snapshots
+    const fixedWidth = 500;
+    const fixedHeight = 150;
+    
+    const ordinalData = [
+      {
+        value: 1,
+        description: 'First milestone',
+      },
+      {
+        value: 2,
+        description: 'Second milestone',
+      },
+      {
+        value: 3,
+        description: 'Third milestone',
+      }
+    ];
+
+    const { container } = render(
+      <div style={{ width: `${fixedWidth}px`, height: `${fixedHeight}px` }}>
+        <Milestones
+          data={ordinalData}
+          scaleType="ordinal"
+          mapping={{
+            value: 'value',
+            text: 'description',
+          }}
+        />
+      </div>
+    );
+    
+    // Wait for rendering to complete
+    await waitFor(() => {
+      expect(container.querySelector('.milestones')).toBeInTheDocument();
+    });
+    
+    // Get the main milestones element
+    const milestonesElement = container.querySelector('.milestones');
+    if (!milestonesElement) {
+      throw new Error('Milestones element not found');
+    }
+    
+    // Convert HTML element to canvas and get buffer for snapshot testing
+    const canvas = await svgToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
+    const buffer = canvas.toBuffer('image/png');
+    
+    // Expect the snapshot to match
+    expect(buffer).toMatchImageSnapshot({
+      customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
+      customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
+      failureThreshold: 0.01,
+      failureThresholdType: 'percent'
+    });
+  });
+  
+  // Skip snapshot tests in React 16 and 17 as they may have different rendering
+  testForReact18('captures visual snapshot of component', async () => {
+    // Use fixed dimensions to ensure consistent snapshots
+    const fixedWidth = 600;
+    const fixedHeight = 200;
+    
+    // Create test data
+    const timelineData = [
+      {
+        year: 1969,
+        title: 'Moon Landing',
+      },
+      {
+        year: 1989,
+        title: 'Berlin Wall Falls',
+      },
+      {
+        year: 2001,
+        title: 'Wikipedia Launched',
+      },
+      {
+        year: 2008,
+        title: 'Global Financial Crisis',
+      },
+      {
+        year: 2020,
+        title: 'COVID-19 Pandemic',
+      }
+    ];
+
+    // Render the component with fixed dimensions
+    const { container } = render(
+      <div style={{ width: `${fixedWidth}px`, height: `${fixedHeight}px` }}>
+        <Milestones
+          data={timelineData}
+          aggregateBy="year"
+          mapping={{
+            timestamp: 'year',
+            text: 'title',
+          }}
+          parseTime="%Y"
+        />
+      </div>
+    );
+    
+    // Wait for rendering to complete
+    await waitFor(() => {
+      expect(container.querySelector('.milestones')).toBeInTheDocument();
+    });
+    
+    // Get the main milestones element
+    const milestonesElement = container.querySelector('.milestones');
+    if (!milestonesElement) {
+      throw new Error('Milestones element not found');
+    }
+    
+    // Convert HTML element to canvas and get buffer for snapshot testing
+    const canvas = await svgToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
+    const buffer = canvas.toBuffer('image/png');
+    
+    // Expect the snapshot to match
+    expect(buffer).toMatchImageSnapshot({
+      customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
+      customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
+      failureThreshold: 0.01,
+      failureThresholdType: 'percent'
+    });
   });
 });
