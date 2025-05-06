@@ -11,6 +11,7 @@ const D3_MILESTONES_CSS_PATH = path.resolve(
 
 // Read CSS file once at module load time
 let d3MilestonesCSS = '';
+
 try {
   d3MilestonesCSS = fs.readFileSync(D3_MILESTONES_CSS_PATH, 'utf8');
 } catch (error) {
@@ -31,7 +32,7 @@ const ADDITIONAL_STYLES = `
 `;
 
 /**
- * Creates a self-contained HTML file with embedded d3-milestones
+ * Creates a self-contained HTML file with embedded react-milestones-vis
  * JavaScript and required props for direct rendering in the browser
  */
 export function createSelfContainedMilestonesHtml(
@@ -48,7 +49,26 @@ export function createSelfContainedMilestonesHtml(
   // since they're not actual MilestonesOptions properties
   const { width: _, height: __, ...milestonesProps } = props;
   
-  // Create a full HTML document with embedded d3-milestones
+  // Create a simplified test HTML document for debugging the HTML2IMG service
+  if (process.env.NODE_ENV === 'test_debug') {
+    return `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body>
+          <h1>Test HTML2IMG Service</h1>
+          <div style="width: ${width}px; height: ${height}px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+            <div style="font-size: 24px; color: #333;">Test Content</div>
+          </div>
+        </body>
+      </html>
+    `;
+  }
+  
+  // Create a full HTML document with direct d3-milestones (not through React)
   return `
     <!DOCTYPE html>
     <html>
@@ -60,15 +80,16 @@ export function createSelfContainedMilestonesHtml(
         <script src="https://unpkg.com/d3-milestones@1.5.0/build/d3-milestones.min.js"></script>
       </head>
       <body>
-        <div id="visualization" style="width: ${width}px; height: ${height}px;"></div>
+        <div id="container" style="width: ${width}px; height: ${height}px;"></div>
+        
         <script>
           // Wait for document to be fully loaded
           document.addEventListener('DOMContentLoaded', function() {
             // Get the props for the visualization
             const props = ${JSON.stringify(milestonesProps, null, 2)};
-            const container = document.getElementById('visualization');
+            const container = document.getElementById('container');
             
-            // Initialize d3-milestones
+            // Initialize d3-milestones directly (skip React layer for tests)
             const vis = milestones(container);
             
             // Configure all properties

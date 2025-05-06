@@ -27,6 +27,9 @@ yarn-error.log*
 # storybook
 storybook-static
 
+# Claude related files
 **/CLAUDE.local.md
-
 **/.claude/settings.local.json
+
+# Generated test files
+src/components/milestones/__tests__/test-bundle.js

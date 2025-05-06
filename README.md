@@ -97,6 +97,8 @@ Run visual snapshot tests using HTML2IMG rendering service. These tests validate
 - Install and run [node-html2img-render-server](https://github.com/walterra/node-html2img-render-server)
 - Use `yarn test:visual:update` to update existing snapshots
 
+For more information about the visual testing setup and troubleshooting, see [VISUAL_TESTING.md](./VISUAL_TESTING.md).
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder using `rollup`.

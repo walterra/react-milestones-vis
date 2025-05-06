@@ -72,7 +72,10 @@ export async function renderHtmlToImage(
             const buffer = Buffer.concat(chunks);
             resolve(buffer);
           } else {
-            reject(new Error(`HTML2IMG API error: HTTP Status ${res.statusCode}`));
+            // Try to parse error response if available
+            const responseData = Buffer.concat(chunks).toString('utf8');
+            console.error('Error response from server:', responseData);
+            reject(new Error(`HTML2IMG API error: HTTP Status ${res.statusCode} - ${responseData}`));
           }
         });
       });
