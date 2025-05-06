@@ -129,24 +129,4 @@ export interface MilestonesOptions<T = unknown> {
    * Callback that executes after rendering is complete
    */
   renderCallback?: () => void;
-  /**
-   * Custom CSS class name
-   */
-  className?: string;
-  /**
-   * Custom primary color for the component
-   */
-  color?: string;
-  /**
-   * Custom background color for the component
-   */
-  backgroundColor?: string;
-  /**
-   * Custom label background color
-   */
-  labelBgColor?: string;
-  /**
-   * Custom label text color
-   */
-  labelTextColor?: string;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, FC, CSSProperties } from 'react';
+import React, { useEffect, useRef, useState, FC } from 'react';
 
 // @ts-ignore Could not find a declaration file for module 'd3-milestones'.
 import milestones from 'd3-milestones';
@@ -43,27 +43,6 @@ interface IMilestones {
 export const Milestones: FC<MilestonesOptions> = (props) => {
   const milestonesDivEl = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState<IMilestones>();
-
-  // Create custom styles based on props
-  const customStyles = (): CSSProperties => {
-    const styles: CSSProperties = {};
-    
-    // If custom styles are provided, add CSS variables to the container
-    if (props.color) {
-      styles['--d3-milestones-color' as any] = props.color;
-    }
-    if (props.backgroundColor) {
-      styles['--d3-milestones-background-color' as any] = props.backgroundColor;
-    }
-    if (props.labelBgColor) {
-      styles['--d3-milestones-label-bg-color' as any] = props.labelBgColor;
-    }
-    if (props.labelTextColor) {
-      styles['--d3-milestones-label-text-color' as any] = props.labelTextColor;
-    }
-    
-    return styles;
-  };
 
   useEffect(() => {
     if (milestonesDivEl.current !== null) {
@@ -117,10 +96,6 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
   }, [vis, props]);
 
   return (
-    <div 
-      ref={milestonesDivEl}
-      className={props.className}
-      style={customStyles()}
-    />
+    <div ref={milestonesDivEl} />
   );
 };
