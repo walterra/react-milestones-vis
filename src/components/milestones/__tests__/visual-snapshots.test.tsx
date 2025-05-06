@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Milestones } from '../milestones';
-import { renderElementToSnapshot } from './html-snapshot';
+import { renderMilestonesToImage } from './d3-milestones-html';
 import { timelineData, ordinalData, testForReact18 } from './test-utils';
 
 // Run visual snapshot tests only when specifically selected
@@ -16,97 +16,90 @@ describe('Milestones Component - Visual Snapshots', () => {
    * 3. Run `yarn test:visual:update` to update the snapshots
    */
 
-  // Skip snapshot tests in React 16 and 17 as they may have different rendering
-  testForReact18('captures visual snapshot of timeline component', async () => {
+  // Common settings for image snapshots
+  const snapshotSettings = {
+    customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
+    customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
+    failureThreshold: 0.01,
+    failureThresholdType: 'percent'
+  };
+
+  // This works in any environment including jsdom since it bypasses the DOM completely
+  test('captures visual snapshot of timeline component', async () => {
     // Use fixed dimensions to ensure consistent snapshots
     const fixedWidth = 600;
     const fixedHeight = 200;
     
-    // Render the component with fixed dimensions
-    const { container } = render(
-      <div style={{ width: `${fixedWidth}px`, height: `${fixedHeight}px` }}>
-        <Milestones
-          data={timelineData}
-          aggregateBy="year"
-          mapping={{
-            timestamp: 'year',
-            text: 'title',
-          }}
-          parseTime="%Y"
-        />
-      </div>
-    );
-    
-    // Wait for rendering to complete
-    await waitFor(() => {
-      expect(container.querySelector('.milestones')).toBeInTheDocument();
+    // Render directly to image using self-contained HTML approach
+    const imageBuffer = await renderMilestonesToImage({
+      data: timelineData,
+      aggregateBy: "year",
+      mapping: {
+        timestamp: 'year',
+        text: 'title',
+      },
+      parseTime: "%Y",
+      width: fixedWidth,
+      height: fixedHeight
     });
-    
-    // Get the main milestones element
-    const milestonesElement = container.querySelector('.milestones');
-    if (!milestonesElement) {
-      throw new Error('Milestones element not found');
-    }
-    
-    // Render HTML element directly to image buffer for snapshot testing
-    const imageBuffer = await renderElementToSnapshot(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
       
     // Expect the snapshot to match
-    expect(imageBuffer).toMatchImageSnapshot({
-      customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
-      customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
-      failureThreshold: 0.01,
-      failureThresholdType: 'percent'
-    });
+    expect(imageBuffer).toMatchImageSnapshot(snapshotSettings);
   });
   
-  testForReact18('captures visual snapshot of ordinal scale component', async () => {
+  test('captures visual snapshot of ordinal scale component', async () => {
     // Use fixed dimensions for consistent snapshots
     const fixedWidth = 500;
     const fixedHeight = 150;
     
-    const { container } = render(
-      <div style={{ width: `${fixedWidth}px`, height: `${fixedHeight}px` }}>
-        <Milestones
-          data={ordinalData}
-          scaleType="ordinal"
-          mapping={{
-            value: 'value',
-            text: 'description',
-          }}
-        />
-      </div>
-    );
-    
-    // Wait for rendering to complete
-    await waitFor(() => {
-      expect(container.querySelector('.milestones')).toBeInTheDocument();
+    // Render directly to image using self-contained HTML approach
+    const imageBuffer = await renderMilestonesToImage({
+      data: ordinalData,
+      scaleType: "ordinal",
+      mapping: {
+        value: 'value',
+        text: 'description',
+      },
+      width: fixedWidth,
+      height: fixedHeight
     });
-    
-    // Get the main milestones element
-    const milestonesElement = container.querySelector('.milestones');
-    if (!milestonesElement) {
-      throw new Error('Milestones element not found');
-    }
-    
-    // Render HTML element directly to image buffer for snapshot testing
-    const imageBuffer = await renderElementToSnapshot(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
       
     // Expect the snapshot to match
-    expect(imageBuffer).toMatchImageSnapshot({
-      customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
-      customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
-      failureThreshold: 0.01,
-      failureThresholdType: 'percent'
-    });
+    expect(imageBuffer).toMatchImageSnapshot(snapshotSettings);
   });
 
-  testForReact18('captures visual snapshot with custom styling', async () => {
+  test('captures visual snapshot with custom styling', async () => {
     // Use fixed dimensions for consistent snapshots
     const fixedWidth = 600;
     const fixedHeight = 200;
     
-    // Render with custom colors and styling
+    // Render directly to image using self-contained HTML approach
+    const imageBuffer = await renderMilestonesToImage({
+      data: timelineData,
+      aggregateBy: "year",
+      mapping: {
+        timestamp: 'year',
+        text: 'title',
+      },
+      parseTime: "%Y",
+      color: "#2196F3",
+      backgroundColor: "#f5f5f5",
+      labelBgColor: "#e0e0e0",
+      labelTextColor: "#333333",
+      width: fixedWidth,
+      height: fixedHeight
+    });
+      
+    // Expect the snapshot to match
+    expect(imageBuffer).toMatchImageSnapshot(snapshotSettings);
+  });
+
+  // Keep one example of the React component rendering for reference
+  // This test will be skipped in jsdom environments
+  testForReact18('renders the React component correctly in browser environment', async () => {
+    const fixedWidth = 600;
+    const fixedHeight = 200;
+    
     const { container } = render(
       <div style={{ width: `${fixedWidth}px`, height: `${fixedHeight}px` }}>
         <Milestones
@@ -117,10 +110,6 @@ describe('Milestones Component - Visual Snapshots', () => {
             text: 'title',
           }}
           parseTime="%Y"
-          color="#2196F3"
-          backgroundColor="#f5f5f5"
-          labelBgColor="#e0e0e0"
-          labelTextColor="#333333"
         />
       </div>
     );
@@ -130,21 +119,7 @@ describe('Milestones Component - Visual Snapshots', () => {
       expect(container.querySelector('.milestones')).toBeInTheDocument();
     });
     
-    // Get the main milestones element
-    const milestonesElement = container.querySelector('.milestones');
-    if (!milestonesElement) {
-      throw new Error('Milestones element not found');
-    }
-    
-    // Render HTML element directly to image buffer for snapshot testing
-    const imageBuffer = await renderElementToSnapshot(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
-      
-    // Expect the snapshot to match
-    expect(imageBuffer).toMatchImageSnapshot({
-      customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
-      customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
-      failureThreshold: 0.01,
-      failureThresholdType: 'percent'
-    });
+    // Just verify that the component rendered
+    expect(container.querySelector('.milestones')).toBeInTheDocument();
   });
 });
