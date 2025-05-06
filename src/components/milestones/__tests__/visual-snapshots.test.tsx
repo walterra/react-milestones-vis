@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Milestones } from '../milestones';
-import { htmlToCanvas } from './canvas-helper';
+import { renderElementToSnapshot } from './html-snapshot';
 import { timelineData, ordinalData, testForReact18 } from './test-utils';
 
 // Run visual snapshot tests only when specifically selected
@@ -48,17 +48,16 @@ describe('Milestones Component - Visual Snapshots', () => {
       throw new Error('Milestones element not found');
     }
     
-      // Convert HTML element to canvas and get buffer for snapshot testing
-      const canvas = await htmlToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
-      const buffer = canvas.toBuffer('image/png');
+    // Render HTML element directly to image buffer for snapshot testing
+    const imageBuffer = await renderElementToSnapshot(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
       
-      // Expect the snapshot to match
-      expect(buffer).toMatchImageSnapshot({
-        customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
-        customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
-        failureThreshold: 0.01,
-        failureThresholdType: 'percent'
-      });
+    // Expect the snapshot to match
+    expect(imageBuffer).toMatchImageSnapshot({
+      customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
+      customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
+      failureThreshold: 0.01,
+      failureThresholdType: 'percent'
+    });
   });
   
   testForReact18('captures visual snapshot of ordinal scale component', async () => {
@@ -90,17 +89,16 @@ describe('Milestones Component - Visual Snapshots', () => {
       throw new Error('Milestones element not found');
     }
     
-      // Convert HTML element to canvas and get buffer for snapshot testing
-      const canvas = await htmlToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
-      const buffer = canvas.toBuffer('image/png');
+    // Render HTML element directly to image buffer for snapshot testing
+    const imageBuffer = await renderElementToSnapshot(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
       
-      // Expect the snapshot to match
-      expect(buffer).toMatchImageSnapshot({
-        customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
-        customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
-        failureThreshold: 0.01,
-        failureThresholdType: 'percent'
-      });
+    // Expect the snapshot to match
+    expect(imageBuffer).toMatchImageSnapshot({
+      customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
+      customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
+      failureThreshold: 0.01,
+      failureThresholdType: 'percent'
+    });
   });
 
   testForReact18('captures visual snapshot with custom styling', async () => {
@@ -138,16 +136,15 @@ describe('Milestones Component - Visual Snapshots', () => {
       throw new Error('Milestones element not found');
     }
     
-      // Convert HTML element to canvas and get buffer for snapshot testing
-      const canvas = await htmlToCanvas(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
-      const buffer = canvas.toBuffer('image/png');
+    // Render HTML element directly to image buffer for snapshot testing
+    const imageBuffer = await renderElementToSnapshot(milestonesElement as HTMLElement, fixedWidth, fixedHeight);
       
-      // Expect the snapshot to match
-      expect(buffer).toMatchImageSnapshot({
-        customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
-        customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
-        failureThreshold: 0.01,
-        failureThresholdType: 'percent'
-      });
+    // Expect the snapshot to match
+    expect(imageBuffer).toMatchImageSnapshot({
+      customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
+      customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
+      failureThreshold: 0.01,
+      failureThresholdType: 'percent'
+    });
   });
 });

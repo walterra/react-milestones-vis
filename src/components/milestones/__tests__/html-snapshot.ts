@@ -1,7 +1,6 @@
-import { createCanvas, Canvas } from 'canvas';
-import { renderHtmlToImage } from './html2img-service';
 import * as fs from 'fs';
 import * as path from 'path';
+import { renderHtmlToImage } from './html2img-service';
 
 // Get the d3-milestones CSS directly from node_modules
 const D3_MILESTONES_CSS_PATH = path.resolve(
@@ -31,10 +30,13 @@ const ADDITIONAL_STYLES = `
 `;
 
 /**
- * Helper to create a canvas image from an HTML element for snapshot testing
- * Delegates the actual rendering to the remote HTML2IMG service
+ * Renders an HTML element to a PNG image buffer for snapshot testing
  */
-export async function htmlToCanvas(element: HTMLElement, width: number, height: number): Promise<Canvas> {
+export async function renderElementToSnapshot(
+  element: HTMLElement, 
+  width: number, 
+  height: number
+): Promise<Buffer> {
   // Get the HTML content of the element
   const elementHTML = element.outerHTML;
   
@@ -55,15 +57,6 @@ export async function htmlToCanvas(element: HTMLElement, width: number, height: 
     </html>
   `;
   
-  // Use the HTML2IMG service to render the HTML to an image
-  const imageBuffer = await renderHtmlToImage(fullHtml, width, height, 'png', combinedCSS);
-  
-  // Create a canvas to wrap the image (to maintain API compatibility)
-  const canvas = createCanvas(width, height);
-  
-  // To maintain compatibility with the existing code that expects a Canvas object,
-  // we attach the buffer to the canvas for use in tests
-  (canvas as any).toBuffer = () => imageBuffer;
-  
-  return canvas;
+  // Use the HTML2IMG service to render the HTML to an image buffer
+  return renderHtmlToImage(fullHtml, width, height, 'png', combinedCSS);
 }
