@@ -15,7 +15,8 @@ export async function renderHtmlToImage(
   html: string,
   width: number,
   height: number,
-  format: 'png' | 'jpeg' = 'png'
+  format: 'png' | 'jpeg' = 'png',
+  css?: string
 ): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     try {
@@ -30,14 +31,21 @@ export async function renderHtmlToImage(
       }
       
       // Prepare the request data
-      const requestData = JSON.stringify({
+      const requestData: any = {
         html,
         viewport: {
           width,
           height
         },
         format
-      });
+      };
+      
+      // Only include CSS if provided
+      if (css) {
+        requestData.css = css;
+      }
+      
+      const requestDataString = JSON.stringify(requestData);
       
       // Prepare request options with full path including query parameters
       const options = {
@@ -47,7 +55,7 @@ export async function renderHtmlToImage(
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(requestData)
+          'Content-Length': Buffer.byteLength(requestDataString)
         }
       };
       
@@ -74,7 +82,7 @@ export async function renderHtmlToImage(
       });
       
       // Send the request data
-      req.write(requestData);
+      req.write(requestDataString);
       req.end();
     } catch (error) {
       reject(error instanceof Error ? error : new Error(String(error)));
