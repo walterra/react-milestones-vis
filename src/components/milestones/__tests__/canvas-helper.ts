@@ -1,26 +1,40 @@
 import { createCanvas, Canvas } from 'canvas';
+import { renderHtmlToImage } from './html2img-service';
 
 /**
  * Helper to create a canvas image from an HTML element for snapshot testing
+ * Delegates the actual rendering to the remote HTML2IMG service
  */
 export async function htmlToCanvas(element: HTMLElement, width: number, height: number): Promise<Canvas> {
-  // Create a canvas with the desired dimensions
+  // Get the HTML content of the element
+  const elementHTML = element.outerHTML;
+  
+  // Create a full HTML document wrapping the element HTML
+  const fullHtml = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          body { margin: 0; padding: 0; background-color: #ffffff; }
+        </style>
+      </head>
+      <body>
+        ${elementHTML}
+      </body>
+    </html>
+  `;
+  
+  // Use the HTML2IMG service to render the HTML to an image
+  const imageBuffer = await renderHtmlToImage(fullHtml, width, height, 'png');
+  
+  // Create a canvas to wrap the image (to maintain API compatibility)
   const canvas = createCanvas(width, height);
-  const ctx = canvas.getContext('2d');
   
-  // This will create a blank canvas with the right dimensions, which will show
-  // if tests pass or fail based on the reference snapshot
-  
-  // Fill with white background so we have something visible
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, width, height);
-  
-  // Add a placeholder rect to indicate where content would be
-  ctx.strokeStyle = '#cccccc';
-  ctx.strokeRect(10, 10, width - 20, height - 20);
-  
-  // Note: This is a simplified approach as we cannot directly render HTML to canvas
-  // in Node environment without additional libraries
+  // To maintain compatibility with the existing code that expects a Canvas object,
+  // we attach the buffer to the canvas for use in tests
+  (canvas as any).toBuffer = () => imageBuffer;
   
   return canvas;
 }
