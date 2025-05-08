@@ -1,6 +1,12 @@
 # Development Notes
 
 - For every update, don't forget to add a note in [CHANGELOG.md](./CHANGELOG.md).
+- To generate self-contained example HTML files:
+  - First run `yarn build` to generate the package bundles
+  - Then run `yarn build:examples`
+  - This will create HTML files in the `examples/` directory with all dependencies included
+  - Each example uses an iife build of react-milestones-vis and demonstrates a different data set and configuration
+  - These self-contained examples are used for visual regression testing
 - How to do a release:
   - `git checkout main`
   - Check if [CHANGELOG.md](./CHANGELOG.md) is up to date.
@@ -9,6 +15,7 @@
   - `git tag <version-number>`
   - `yarn build-storybook`
   - `yarn deploy-storybook`
+  - `yarn build:examples` (to update the examples with the latest version)
   - `git push origin main`
   - `git push --tags`
   - `npm publish`

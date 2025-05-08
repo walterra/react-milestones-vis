@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, FC } from 'react';
+import { useEffect, useRef, useState, FC } from 'react';
 
 // @ts-ignore Could not find a declaration file for module 'd3-milestones'.
 import milestones from 'd3-milestones';
@@ -41,13 +41,14 @@ interface IMilestones {
  * React Milestones Visualization
  */
 export const Milestones: FC<MilestonesOptions> = (props) => {
-  const milestonesDivEl = useRef(null);
+  const milestonesDivEl = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState<IMilestones>();
 
   useEffect(() => {
     if (milestonesDivEl.current !== null) {
       setVis(milestones(milestonesDivEl.current) as IMilestones);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [milestonesDivEl.current]);
 
   useEffect(() => {
@@ -89,7 +90,8 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         vis.onEventMouseLeave(onEventMouseLeave);
       typeof onEventMouseOver === 'function' &&
         vis.onEventMouseOver(onEventMouseOver);
-      typeof renderCallback === 'function' && vis.renderCallback(renderCallback);
+      typeof renderCallback === 'function' &&
+        vis.renderCallback(renderCallback);
 
       vis.render(data);
     }
