@@ -10,9 +10,18 @@ expect.extend({ toMatchImageSnapshot });
 
 // Mock ResizeObserver for all tests
 class ResizeObserverMock {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+  observe() {
+    // Mock implementation for testing
+    return;
+  }
+  unobserve() {
+    // Mock implementation for testing
+    return;
+  }
+  disconnect() {
+    // Mock implementation for testing
+    return;
+  }
 }
 
 // Add to global

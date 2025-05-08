@@ -48,6 +48,7 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
     if (milestonesDivEl.current !== null) {
       setVis(milestones(milestonesDivEl.current) as IMilestones);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [milestonesDivEl.current]);
 
   useEffect(() => {

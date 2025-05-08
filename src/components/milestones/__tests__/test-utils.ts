@@ -10,7 +10,9 @@ export function testForReact18(name: string, testFn: jest.ProvidesCallback): voi
   if (reactVersion >= 18) {
     test(name, testFn);
   } else {
-    test.skip(`${name} (requires React 18)`, () => {});
+    test.skip(`${name} (requires React 18)`, () => {
+      // Test skipped for older React versions
+    });
   }
 }
 

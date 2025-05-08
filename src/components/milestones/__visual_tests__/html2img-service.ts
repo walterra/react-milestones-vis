@@ -69,11 +69,11 @@ export async function renderHtmlToImage(
         
         res.on('end', () => {
           if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
-            const buffer = Buffer.concat(chunks);
+            const buffer = Buffer.concat(chunks as unknown as Uint8Array[]);
             resolve(buffer);
           } else {
             // Try to parse error response if available
-            const responseData = Buffer.concat(chunks).toString('utf8');
+            const responseData = Buffer.concat(chunks as unknown as Uint8Array[]).toString('utf8');
             console.error('Error response from server:', responseData);
             reject(new Error(`HTML2IMG API error: HTTP Status ${res.statusCode} - ${responseData}`));
           }

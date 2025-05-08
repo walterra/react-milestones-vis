@@ -21,7 +21,7 @@ describe('Milestones Component - Visual Snapshots', () => {
     customSnapshotsDir: `${process.cwd()}/src/components/milestones/__visual_tests__/__image_snapshots__`,
     customDiffDir: `${process.cwd()}/src/components/milestones/__visual_tests__/__image_snapshots__/__diff_output__`,
     failureThreshold: 0.01,
-    failureThresholdType: 'percent',
+    failureThresholdType: 'percent' as const,
   };
 
   // This works in any environment including jsdom since it bypasses the DOM completely
