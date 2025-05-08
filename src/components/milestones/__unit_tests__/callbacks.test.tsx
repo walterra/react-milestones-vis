@@ -27,9 +27,9 @@ describe('Milestones Component - Callbacks', () => {
     });
   });
 
-  test('calls onClick handler when provided', async () => {
+  test('calls onEventClick handler when provided', async () => {
     // Create a mock function for onClick
-    const mockOnClick = jest.fn();
+    const onEventClick = jest.fn();
 
     const { container } = render(
       <Milestones
@@ -40,7 +40,7 @@ describe('Milestones Component - Callbacks', () => {
           text: 'title',
         }}
         parseTime="%Y"
-        onClick={mockOnClick}
+        onEventClick={onEventClick}
       />
     );
 
@@ -85,7 +85,7 @@ describe('Milestones Component - Callbacks', () => {
       {
         year: 850,
         title: 'New timeline event',
-      }
+      },
     ];
 
     // Rerender with new data

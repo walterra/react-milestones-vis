@@ -22,16 +22,16 @@ describe.skip('Milestones Component - DOM Debugging', () => {
         parseTime="%Y"
       />
     );
-    
+
     // Wait for the component to render
     await waitFor(() => {
       expect(container.querySelector('.milestones')).toBeInTheDocument();
     });
-    
+
     // Output the DOM structure to the console
     console.log('BASIC TIMELINE DOM STRUCTURE:');
     debug(container);
-    
+
     // Check the DOM structure (these are debugging checks, not real tests)
     const milestonesEl = container.querySelector('.milestones');
     console.log('Classes on milestones element:', milestonesEl?.className);
@@ -49,16 +49,16 @@ describe.skip('Milestones Component - DOM Debugging', () => {
         }}
       />
     );
-    
+
     // Wait for the component to render
     await waitFor(() => {
       expect(container.querySelector('.milestones')).toBeInTheDocument();
     });
-    
+
     // Output the DOM structure to the console
     console.log('ORDINAL SCALE DOM STRUCTURE:');
     debug(container);
-    
+
     // Check the DOM structure for ordinal scale
     const milestonesEl = container.querySelector('.milestones');
     console.log('Classes on ordinal scale element:', milestonesEl?.className);
@@ -75,18 +75,14 @@ describe.skip('Milestones Component - DOM Debugging', () => {
           text: 'title',
         }}
         parseTime="%Y"
-        color="#ff0000"
-        backgroundColor="#f5f5f5"
-        labelBgColor="#e0e0e0"
-        labelTextColor="#333333"
       />
     );
-    
+
     // Wait for the component to render
     await waitFor(() => {
       expect(container.querySelector('.milestones')).toBeInTheDocument();
     });
-    
+
     // Output the DOM structure to the console
     console.log('STYLED TIMELINE DOM STRUCTURE:');
     debug(container);

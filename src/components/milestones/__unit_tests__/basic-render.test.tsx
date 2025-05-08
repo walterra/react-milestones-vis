@@ -58,24 +58,4 @@ describe('Milestones Component - Basic Rendering', () => {
     expect(container.firstChild).toBeInTheDocument();
     expect(container.firstChild?.nodeName).toBe('DIV');
   });
-
-  test('accepts custom className prop', () => {
-    const customClass = 'custom-milestones';
-    const { container } = render(
-      <Milestones
-        data={vikingsData}
-        aggregateBy="year"
-        mapping={{
-          timestamp: 'year',
-          text: 'title',
-        }}
-        parseTime="%Y"
-        className={customClass}
-      />
-    );
-
-    // Just verify component renders with the className prop
-    // D3-milestones may handle class names differently than direct assignment
-    expect(container.firstChild).toBeInTheDocument();
-  });
 });
