@@ -89,13 +89,12 @@ export const Milestones: FC<MilestonesOptions> = (props) => {
         vis.onEventMouseLeave(onEventMouseLeave);
       typeof onEventMouseOver === 'function' &&
         vis.onEventMouseOver(onEventMouseOver);
-      typeof renderCallback === 'function' && vis.renderCallback(renderCallback);
+      typeof renderCallback === 'function' &&
+        vis.renderCallback(renderCallback);
 
       vis.render(data);
     }
   }, [vis, props]);
 
-  return (
-    <div ref={milestonesDivEl} />
-  );
+  return <div ref={milestonesDivEl} />;
 };

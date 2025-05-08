@@ -3,6 +3,7 @@
 - Updated `d3-milestones` to `v1.5.0`.
 - Added support for `renderCallback`.
 - Added support for ordinal scales as an alternative to time scales.
+- Added `yarn build:examples` script to generate self-contained HTML examples.
 
 ## [`v0.6.5`](https://github.com/walterra/react-milestones-vis/tree/v0.6.5)
 
