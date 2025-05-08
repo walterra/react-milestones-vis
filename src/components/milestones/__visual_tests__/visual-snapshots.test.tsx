@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Milestones } from '../milestones';
-import { renderMilestonesToImage } from '../__tests__/d3-milestones-html';
-import { timelineData, ordinalData, testForReact18 } from '../__tests__/test-utils';
+import { renderMilestonesToImage } from './d3-milestones-html';
+import { timelineData, ordinalData, testForReact18 } from './test-utils';
 
 // Run visual snapshot tests only when specifically selected
 describe('Milestones Component - Visual Snapshots', () => {

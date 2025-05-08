@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Milestones } from '../milestones';
 import { vikingsData, timelineData, ordinalData } from './test-utils';
