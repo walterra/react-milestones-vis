@@ -45,7 +45,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
-    "check": "yarn typecheck && yarn lint"
+    "check:all": "yarn typecheck && yarn lint"
   },
   "browserslist": {
     "production": [
