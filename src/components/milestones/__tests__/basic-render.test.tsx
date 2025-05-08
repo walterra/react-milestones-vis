@@ -16,7 +16,7 @@ describe('Milestones Component - Basic Rendering', () => {
         parseTime="%Y"
       />
     );
-    
+
     // Verify the div container is rendered
     expect(container.firstChild).toBeInTheDocument();
     expect(container.firstChild?.nodeName).toBe('DIV');
@@ -53,7 +53,7 @@ describe('Milestones Component - Basic Rendering', () => {
         parseTime="%Y"
       />
     );
-    
+
     // Verify the div container is rendered even with empty data
     expect(container.firstChild).toBeInTheDocument();
     expect(container.firstChild?.nodeName).toBe('DIV');
@@ -73,7 +73,7 @@ describe('Milestones Component - Basic Rendering', () => {
         className={customClass}
       />
     );
-    
+
     // Just verify component renders with the className prop
     // D3-milestones may handle class names differently than direct assignment
     expect(container.firstChild).toBeInTheDocument();
