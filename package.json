@@ -41,7 +41,11 @@
     "test:react-ssr": "node scripts/test-react-ssr.js",
     "storybook": "storybook dev -p 6006",
     "deploy-storybook": "gh-pages -d storybook-static",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
+    "check": "yarn typecheck && yarn lint"
   },
   "browserslist": {
     "production": [

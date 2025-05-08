@@ -5,7 +5,7 @@ export default {
       testEnvironment: 'jsdom',
       rootDir: './',
       testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
-      testPathIgnorePatterns: ['.*visual-snapshots\\.test\\.(ts|tsx)$'],
+      testPathIgnorePatterns: ['.*/__visual_tests__/.*'],
       setupFilesAfterEnv: [
         '<rootDir>/src/setupTests.ts',
         '<rootDir>/test/version-testing/setup-react-16.js',
@@ -25,7 +25,7 @@ export default {
       testEnvironment: 'jsdom',
       rootDir: './',
       testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
-      testPathIgnorePatterns: ['.*visual-snapshots\\.test\\.(ts|tsx)$'],
+      testPathIgnorePatterns: ['.*/__visual_tests__/.*'],
       setupFilesAfterEnv: [
         '<rootDir>/src/setupTests.ts',
         '<rootDir>/test/version-testing/setup-react-17.js',
@@ -46,7 +46,7 @@ export default {
       testEnvironment: 'jsdom',
       rootDir: './',
       testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
-      testPathIgnorePatterns: ['.*visual-snapshots\\.test\\.(ts|tsx)$'],
+      testPathIgnorePatterns: ['.*/__visual_tests__/.*'],
       setupFilesAfterEnv: [
         '<rootDir>/src/setupTests.ts',
         '<rootDir>/test/version-testing/setup-react-18.js',
@@ -66,7 +66,7 @@ export default {
       displayName: 'visual-snapshots',
       testEnvironment: 'jsdom',
       rootDir: './',
-      testMatch: ['<rootDir>/src/**/*visual-snapshots.test.{ts,tsx}'],
+      testMatch: ['<rootDir>/src/components/milestones/__visual_tests__/*.test.{ts,tsx}'],
       setupFilesAfterEnv: [
         '<rootDir>/src/setupTests.ts',
         '<rootDir>/test/version-testing/setup-react-18.js',
