@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Milestones } from '../milestones';
-import { renderMilestonesToImage } from './d3-milestones-html';
-import { timelineData, ordinalData, testForReact18 } from './test-utils';
+import { renderMilestonesToImage } from '../__tests__/d3-milestones-html';
+import { timelineData, ordinalData, testForReact18 } from '../__tests__/test-utils';
 
 // Run visual snapshot tests only when specifically selected
 describe('Milestones Component - Visual Snapshots', () => {
@@ -18,8 +18,8 @@ describe('Milestones Component - Visual Snapshots', () => {
 
   // Common settings for image snapshots
   const snapshotSettings = {
-    customSnapshotsDir: `${process.cwd()}/src/components/milestones/__image_snapshots__`,
-    customDiffDir: `${process.cwd()}/src/components/milestones/__image_snapshots__/__diff_output__`,
+    customSnapshotsDir: `${process.cwd()}/src/components/milestones/__visual_tests__/__image_snapshots__`,
+    customDiffDir: `${process.cwd()}/src/components/milestones/__visual_tests__/__image_snapshots__/__diff_output__`,
     failureThreshold: 0.01,
     failureThresholdType: 'percent'
   };
