@@ -8,6 +8,15 @@ dotenv.config();
 const HTML2IMG_RENDER_URL = process.env.HTML2IMG_RENDER_URL || 'http://localhost:3000/render';
 const HTML2IMG_API_KEY = process.env.HTML2IMG_API_KEY || '';
 
+interface HtmlToImageOptions {
+  width: number;
+  height: number;
+  format?: 'png' | 'jpeg';
+  css?: string;
+  clipSelector?: string;
+  waitForSelector?: string;
+}
+
 /**
  * Renders HTML to an image using the node-html2img-render-server
  */
@@ -16,7 +25,9 @@ export async function renderHtmlToImage(
   width: number,
   height: number,
   format: 'png' | 'jpeg' = 'png',
-  css?: string
+  css?: string,
+  clipSelector?: string,
+  waitForSelector?: string
 ): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     try {
@@ -40,9 +51,17 @@ export async function renderHtmlToImage(
         format
       };
       
-      // Only include CSS if provided
+      // Only include optional parameters if provided
       if (css) {
         requestData.css = css;
+      }
+      
+      if (clipSelector) {
+        requestData.clipSelector = clipSelector;
+      }
+      
+      if (waitForSelector) {
+        requestData.waitForSelector = waitForSelector;
       }
       
       const requestDataString = JSON.stringify(requestData);

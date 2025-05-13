@@ -8,9 +8,11 @@ const snapshotSettings = {
   failureThresholdType: 'percent' as const,
 };
 
-// Standard dimensions for consistent snapshots
-const fixedWidth = 1000;
-const fixedHeight = 600;
+// Viewport dimensions
+// This is the size of the browser window during rendering
+// We make it larger than the container to ensure the container fits comfortably
+const viewportWidth = 1200;
+const viewportHeight = 2000;
 
 describe('Example Files - Visual Snapshots', () => {
   /**
@@ -23,11 +25,15 @@ describe('Example Files - Visual Snapshots', () => {
    * 3. Run `yarn test:visual:update` to update the snapshots
    */
 
-  // Use a longer timeout for rendering (5 seconds)
+  // Use a longer timeout for rendering (10 seconds)
   jest.setTimeout(10000);
 
   test('captures visual snapshot of basic milestones example', async () => {
-    const imageBuffer = await renderExampleToImage('milestones.html', fixedWidth, fixedHeight);
+    const imageBuffer = await renderExampleToImage(
+      'milestones.html',
+      viewportWidth,
+      viewportHeight
+    );
     expect(imageBuffer).toMatchImageSnapshot({
       ...snapshotSettings,
       customSnapshotIdentifier: 'example-milestones',
@@ -35,7 +41,11 @@ describe('Example Files - Visual Snapshots', () => {
   });
 
   test('captures visual snapshot of milestones events example', async () => {
-    const imageBuffer = await renderExampleToImage('milestones-events.html', fixedWidth, fixedHeight);
+    const imageBuffer = await renderExampleToImage(
+      'milestones-events.html',
+      viewportWidth,
+      viewportHeight
+    );
     expect(imageBuffer).toMatchImageSnapshot({
       ...snapshotSettings,
       customSnapshotIdentifier: 'example-milestones-events',
@@ -43,7 +53,11 @@ describe('Example Files - Visual Snapshots', () => {
   });
 
   test('captures visual snapshot of vikings example', async () => {
-    const imageBuffer = await renderExampleToImage('vikings.html', fixedWidth, fixedHeight);
+    const imageBuffer = await renderExampleToImage(
+      'vikings.html',
+      viewportWidth,
+      viewportHeight
+    );
     expect(imageBuffer).toMatchImageSnapshot({
       ...snapshotSettings,
       customSnapshotIdentifier: 'example-vikings',
@@ -51,7 +65,12 @@ describe('Example Files - Visual Snapshots', () => {
   });
 
   test('captures visual snapshot of OS category labels example', async () => {
-    const imageBuffer = await renderExampleToImage('os-category-labels.html', fixedWidth, fixedHeight);
+    // OS category example might need a taller container height for the labels
+    const imageBuffer = await renderExampleToImage(
+      'os-category-labels.html',
+      viewportWidth,
+      viewportHeight
+    );
     expect(imageBuffer).toMatchImageSnapshot({
       ...snapshotSettings,
       customSnapshotIdentifier: 'example-os-category-labels',
@@ -59,7 +78,12 @@ describe('Example Files - Visual Snapshots', () => {
   });
 
   test('captures visual snapshot of COVID-19 example', async () => {
-    const imageBuffer = await renderExampleToImage('covid19.html', fixedWidth, fixedHeight);
+    // COVID example has more data points - might need wider viewport
+    const imageBuffer = await renderExampleToImage(
+      'covid19.html',
+      viewportWidth,
+      viewportHeight
+    );
     expect(imageBuffer).toMatchImageSnapshot({
       ...snapshotSettings,
       customSnapshotIdentifier: 'example-covid19',
@@ -67,7 +91,11 @@ describe('Example Files - Visual Snapshots', () => {
   });
 
   test('captures visual snapshot of Ultima series example', async () => {
-    const imageBuffer = await renderExampleToImage('ultima-series.html', fixedWidth, fixedHeight);
+    const imageBuffer = await renderExampleToImage(
+      'ultima-series.html',
+      viewportWidth,
+      viewportHeight
+    );
     expect(imageBuffer).toMatchImageSnapshot({
       ...snapshotSettings,
       customSnapshotIdentifier: 'example-ultima-series',
@@ -75,7 +103,11 @@ describe('Example Files - Visual Snapshots', () => {
   });
 
   test('captures visual snapshot of custom styles example', async () => {
-    const imageBuffer = await renderExampleToImage('styles.html', fixedWidth, fixedHeight);
+    const imageBuffer = await renderExampleToImage(
+      'styles.html',
+      viewportWidth,
+      viewportHeight
+    );
     expect(imageBuffer).toMatchImageSnapshot({
       ...snapshotSettings,
       customSnapshotIdentifier: 'example-styles',

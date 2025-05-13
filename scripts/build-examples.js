@@ -245,10 +245,13 @@ ${examples
     .example-links a:hover {
       text-decoration: underline;
     }
+    #clip-container {
+      position: relative;
+      padding: 1px;
+    }
     #milestones-container {
       width: 100%;
-      height: 400px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
     pre {
       background: #f5f5f5;
@@ -266,7 +269,9 @@ ${examples
     <div class="example-links">
       <a href="index.html">← Back to examples</a>
     </div>
-    <div id="milestones-container"></div>
+    <div id="clip-container">
+      <div id="milestones-container"></div>
+    </div>
     
     <h2>Configuration</h2>
     <pre id="config"></pre>
