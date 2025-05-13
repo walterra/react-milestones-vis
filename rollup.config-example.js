@@ -39,6 +39,7 @@ export default {
       inlineSources: isDevelopment,
     }),
     babel({
+      configFile: false,
       babelHelpers: 'bundled',
       presets: ['@babel/preset-env', '@babel/preset-react'],
       extensions: ['.js', '.jsx', '.ts', '.tsx'],

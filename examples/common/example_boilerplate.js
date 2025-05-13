@@ -11724,6 +11724,7 @@
         if (milestonesDivEl.current !== null) {
           setVis(milestones(milestonesDivEl.current));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [milestonesDivEl.current]);
       reactExports.useEffect(function () {
         if (vis) {

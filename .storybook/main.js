@@ -1,6 +1,5 @@
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  // staticDirs: ['../src/stories/assets'],
 
   addons: [
     '@storybook/addon-links',
@@ -8,7 +7,7 @@ const config = {
     '@storybook/addon-essentials',
     '@storybook/addon-mdx-gfm',
     '@storybook/addon-webpack5-compiler-babel',
-    '@chromatic-com/storybook'
+    '@chromatic-com/storybook',
   ],
 
   framework: {
@@ -24,7 +23,7 @@ const config = {
         esModuleInterop: false,
       },
       propFilter: () => true,
-    }
+    },
   },
 
   webpackFinal: async (config) => {
