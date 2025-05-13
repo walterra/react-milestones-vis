@@ -8,7 +8,7 @@ describe('Milestones Component - Callbacks', () => {
     // Create a mock function for renderCallback
     const mockRenderCallback = jest.fn();
 
-    const { container } = render(
+    render(
       <Milestones
         data={vikingsData}
         aggregateBy="year"
@@ -58,7 +58,7 @@ describe('Milestones Component - Callbacks', () => {
     // Create a mock function for the update callback
     const mockRenderCallback = jest.fn();
 
-    const { container, rerender } = render(
+    const { rerender } = render(
       <Milestones
         data={vikingsData}
         aggregateBy="year"
