@@ -12,7 +12,6 @@ export default {
       ],
       transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
-        '^.+\\.(js|jsx)$': 'babel-jest',
       },
       transformIgnorePatterns: ['/node_modules/(?!d3-milestones).+\\.js$'],
       moduleNameMapper: {
@@ -32,7 +31,6 @@ export default {
       ],
       transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
-        '^.+\\.(js|jsx)$': 'babel-jest',
       },
       transformIgnorePatterns: ['/node_modules/(?!d3-milestones).+\\.js$'],
       moduleNameMapper: {
@@ -53,7 +51,6 @@ export default {
       ],
       transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
-        '^.+\\.(js|jsx)$': 'babel-jest',
       },
       transformIgnorePatterns: ['/node_modules/(?!d3-milestones).+\\.js$'],
       moduleNameMapper: {
@@ -66,14 +63,15 @@ export default {
       displayName: 'visual-snapshots',
       testEnvironment: 'jsdom',
       rootDir: './',
-      testMatch: ['<rootDir>/src/components/milestones/__visual_tests__/*.test.{ts,tsx}'],
+      testMatch: [
+        '<rootDir>/src/components/milestones/__visual_tests__/*.test.{ts,tsx}',
+      ],
       setupFilesAfterEnv: [
         '<rootDir>/src/setupTests.ts',
         '<rootDir>/test/version-testing/setup-react-18.js',
       ],
       transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
-        '^.+\\.(js|jsx)$': 'babel-jest',
       },
       transformIgnorePatterns: ['/node_modules/(?!d3-milestones).+\\.js$'],
       moduleNameMapper: {
