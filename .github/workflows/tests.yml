@@ -1,0 +1,48 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16.x"
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run type checking
+        run: yarn typecheck
+
+      - name: Run linting
+        run: yarn lint
+
+      - name: Run tests (all React versions)
+        run: |
+          yarn test:react16
+          yarn test:react17
+          yarn test:react18
+
+      - name: Run visual tests
+        run: yarn test:visual
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            coverage/
+            src/components/milestones/__visual_tests__/__image_snapshots__/__diff_output__/
+          retention-days: 30
