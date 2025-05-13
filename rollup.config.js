@@ -2,21 +2,19 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
-import ts from 'rollup-plugin-ts';
-
-import packageJson from './package.json';
+import typescript from '@rollup/plugin-typescript';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   input: './src/index.ts',
   output: [
     {
-      file: packageJson.main,
+      file: './build/index.js',
       format: 'cjs',
       sourcemap: true,
     },
     {
-      file: packageJson.module,
+      file: './build/index.es.js',
       format: 'esm',
       sourcemap: true,
     },
@@ -25,11 +23,12 @@ export default {
     peerDepsExternal(),
     resolve(),
     commonjs(),
-    ts({
-      hook: {
-        outputPath: (path, kind) => `./build/${path.split('/').pop()}`,
-      },
-    }),
     postcss(),
+    typescript({
+      tsconfig: './tsconfig.json',
+      sourceMap: true,
+      // inlineSources: isDevelopment,
+    }),
   ],
+  external: ['react', 'react-dom', 'd3-milestones'],
 };

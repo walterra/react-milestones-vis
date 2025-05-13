@@ -82,8 +82,22 @@ You will also see any lint errors in the console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
+
+### `yarn test:react16`, `yarn test:react17`, `yarn test:react18`
+
+Run tests for specific React versions. This is useful for ensuring compatibility across different React versions.
+
+### `yarn test:visual`
+
+Run visual snapshot tests using HTML2IMG rendering service. These tests validate the visual appearance of components by comparing screenshots against baselines.
+
+**Requirements for Visual Tests:**
+- Setup an `.env` file with `HTML2IMG_RENDER_URL` and `HTML2IMG_API_KEY`
+- Install and run [node-html2img-render-server](https://github.com/walterra/node-html2img-render-server)
+- Use `yarn test:visual:update` to update existing snapshots
+
+For more information about the visual testing setup and troubleshooting, see [VISUAL_TESTING.md](./VISUAL_TESTING.md).
 
 ### `yarn build`
 

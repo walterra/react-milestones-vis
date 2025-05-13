@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>react-milestones-vis - styles</title>
+  <link rel="stylesheet" href="common/styles.css">
+  <link rel="stylesheet" href="common/d3-milestones.css">
+</head>
+<body>
+  <div class="container">
+    <h1>react-milestones-vis - styles</h1>
+    <div class="example-links">
+      <a href="index.html">← Back to examples</a>
+    </div>
+    <div id="clip-container">
+      <div id="milestones-container"></div>
+    </div>
+    
+    <h2>Configuration</h2>
+    <pre id="config"></pre>
+    
+    <h2>Data</h2>
+    <pre id="data"></pre>
+  </div>
+
+  <!-- Load dependencies -->
+  <script src="common/example_boilerplate.js"></script>
+  
+  <!-- Render the component -->
+  <script>
+    const data = [{"text":"Default Title","year":1980},{"text":"Green Title","year":1990,"titleStyle":{"color":"#2BFD00"}},{"text":"Bold text","year":1990,"textStyle":{"font-weight":"bold"}},{"text":"Red Title (Not applied)","year":2000,"titleStyle":{"color":"#E12800"}},{"text":"Blue Title","year":2000,"titleStyle":{"color":"#5BC6FF"}},{"text":"Red Text, Blue Title","year":2010,"textStyle":{"color":"#E12800"},"titleStyle":{"color":"#5BC6FF"}},{"text":"Italic text","year":2010,"textStyle":{"font-style":"italic"}}];
+    const options = {"aggregateBy":"year","optimize":true,"parseTime":"%Y","mapping":{"timestamp":"year","text":"text"}};
+    
+    // Display the configuration and data
+    document.getElementById('config').textContent = JSON.stringify(options, null, 2);
+    document.getElementById('data').textContent = JSON.stringify(data, null, 2);
+    
+    // Render the component
+    initializeExample({...options, data});
+  </script>
+</body>
+</html>
