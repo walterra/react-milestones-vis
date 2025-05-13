@@ -35,10 +35,10 @@ jobs:
           yarn test:react18
 
       - name: Run visual tests
-        run: yarn test:visual
         env:
           HTML2IMG_RENDER_URL: ${{ secrets.HTML2IMG_RENDER_URL }}
           HTML2IMG_API_KEY: ${{ secrets.HTML2IMG_API_KEY }}
+        run: yarn test:visual
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
