@@ -34,7 +34,6 @@ export async function renderHtmlToImage(
 ): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     try {
-      console.log('RENDER URL', HTML2IMG_RENDER_URL);
       // Parse the URL to determine if we should use http or https
       const url = new URL(HTML2IMG_RENDER_URL);
       const isHttps = url.protocol === 'https:';
