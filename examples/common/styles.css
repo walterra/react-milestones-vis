@@ -1,0 +1,78 @@
+/* Base styles for all example pages */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Container for page content */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Page title */
+h1 {
+  margin-bottom: 20px;
+}
+
+/* Navigation links */
+.example-links {
+  margin-bottom: 20px;
+}
+
+.example-links a {
+  color: #0066cc;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+.example-links a:hover {
+  text-decoration: underline;
+}
+
+/* Container for the milestones visualization */
+#clip-container {
+  position: relative;
+  padding: 1px;
+}
+
+#milestones-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Styling for code blocks */
+pre {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+  overflow: auto;
+}
+
+/* Index page specific styles */
+.index-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.index-container h1 {
+  margin-bottom: 30px;
+}
+
+.index-container ul {
+  padding-left: 20px;
+}
+
+.index-container li {
+  margin-bottom: 10px;
+}
+
+.index-container a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.index-container a:hover {
+  text-decoration: underline;
+}

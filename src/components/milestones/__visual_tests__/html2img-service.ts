@@ -13,6 +13,7 @@ interface HtmlToImageOptions {
   height: number;
   format?: 'png' | 'jpeg';
   css?: string;
+  javascript?: string;
   clipSelector?: string;
   waitForSelector?: string;
 }
@@ -26,6 +27,7 @@ export async function renderHtmlToImage(
   height: number,
   format: 'png' | 'jpeg' = 'png',
   css?: string,
+  javascript?: string,
   clipSelector?: string,
   waitForSelector?: string
 ): Promise<Buffer> {
@@ -54,6 +56,10 @@ export async function renderHtmlToImage(
       // Only include optional parameters if provided
       if (css) {
         requestData.css = css;
+      }
+      
+      if (javascript) {
+        requestData.javascript = javascript;
       }
       
       if (clipSelector) {

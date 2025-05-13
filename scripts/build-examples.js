@@ -12,6 +12,12 @@ if (!fs.existsSync(examplesDir)) {
   fs.mkdirSync(examplesDir);
 }
 
+// Create examples/common directory if it doesn't exist
+const examplesCommonDir = path.join(examplesDir, 'common');
+if (!fs.existsSync(examplesCommonDir)) {
+  fs.mkdirSync(examplesCommonDir);
+}
+
 // Load example data files
 const loadJsonFile = (filename) => {
   const filePath = path.join(
@@ -127,6 +133,11 @@ const cssPath = path.join(
 );
 const milestonesCss = fs.readFileSync(cssPath, 'utf8');
 
+// Write d3-milestones CSS to examples/common directory
+const commonCssPath = path.join(examplesCommonDir, 'd3-milestones.css');
+fs.writeFileSync(commonCssPath, milestonesCss);
+console.log(`Generated ${commonCssPath}`);
+
 // Load react-milestones-vis iife example script
 const reactMilestonesVisExamplePath = path.join(
   __dirname,
@@ -141,10 +152,10 @@ if (!fs.existsSync(reactMilestonesVisExamplePath)) {
   process.exit(1);
 }
 
-const reactMilestonesVisExampleScript = fs.readFileSync(
-  reactMilestonesVisExamplePath,
-  'utf8'
-);
+// Copy the example_boilerplate.js file to examples/common directory
+const commonJsPath = path.join(examplesCommonDir, 'example_boilerplate.js');
+fs.copyFileSync(reactMilestonesVisExamplePath, commonJsPath);
+console.log(`Copied example_boilerplate.js to ${commonJsPath}`);
 
 // We're now using the pre-built iife bundle from the build directory
 // This is important because we want to run visual regression tests against
@@ -154,7 +165,7 @@ console.log('Using pre-built iife bundle for examples...');
 // Generate examples using the pre-built iife bundle
 async function generateExamples() {
   try {
-    // We're using the pre-built iife bundle loaded earlier
+    // We're using the pre-built iife bundle loaded as a separate file
     console.log('Generating examples with the pre-built iife bundle...');
 
     // Create index.html with links to all examples
@@ -164,36 +175,10 @@ async function generateExamples() {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>react-milestones-vis examples</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    h1 {
-      margin-bottom: 30px;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    li {
-      margin-bottom: 10px;
-    }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <link rel="stylesheet" href="common/styles.css">
 </head>
 <body>
-  <div class="container">
+  <div class="index-container">
     <h1>react-milestones-vis examples</h1>
     <ul>
 ${examples
@@ -221,47 +206,8 @@ ${examples
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>react-milestones-vis - ${name}</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    .example-links {
-      margin-bottom: 20px;
-    }
-    .example-links a {
-      color: #0066cc;
-      text-decoration: none;
-      margin-right: 15px;
-    }
-    .example-links a:hover {
-      text-decoration: underline;
-    }
-    #clip-container {
-      position: relative;
-      padding: 1px;
-    }
-    #milestones-container {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-    pre {
-      background: #f5f5f5;
-      padding: 15px;
-      border-radius: 4px;
-      overflow: auto;
-    }
-
-    ${milestonesCss}
-  </style>
+  <link rel="stylesheet" href="common/styles.css">
+  <link rel="stylesheet" href="common/d3-milestones.css">
 </head>
 <body>
   <div class="container">
@@ -281,9 +227,7 @@ ${examples
   </div>
 
   <!-- Load dependencies -->
-  <script>
-    ${reactMilestonesVisExampleScript}
-  </script>
+  <script src="common/example_boilerplate.js"></script>
   
   <!-- Render the component -->
   <script>

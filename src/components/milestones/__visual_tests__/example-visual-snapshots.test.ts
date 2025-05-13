@@ -1,4 +1,5 @@
 import { renderExampleToImage } from './example-html-renderer';
+import { examples } from './example-configurations';
 
 // Common settings for image snapshots - using the same settings as in visual-snapshots.test.tsx
 const snapshotSettings = {
@@ -28,89 +29,15 @@ describe('Example Files - Visual Snapshots', () => {
   // Use a longer timeout for rendering (10 seconds)
   jest.setTimeout(10000);
 
-  test('captures visual snapshot of basic milestones example', async () => {
-    const imageBuffer = await renderExampleToImage(
-      'milestones.html',
-      viewportWidth,
-      viewportHeight
-    );
-    expect(imageBuffer).toMatchImageSnapshot({
-      ...snapshotSettings,
-      customSnapshotIdentifier: 'example-milestones',
-    });
-  });
+  // Loop through each example and create a test for it
+  examples.forEach((example) => {
+    test(`captures visual snapshot of ${example.name}`, async () => {
+      const imageBuffer = await renderExampleToImage(example);
 
-  test('captures visual snapshot of milestones events example', async () => {
-    const imageBuffer = await renderExampleToImage(
-      'milestones-events.html',
-      viewportWidth,
-      viewportHeight
-    );
-    expect(imageBuffer).toMatchImageSnapshot({
-      ...snapshotSettings,
-      customSnapshotIdentifier: 'example-milestones-events',
-    });
-  });
-
-  test('captures visual snapshot of vikings example', async () => {
-    const imageBuffer = await renderExampleToImage(
-      'vikings.html',
-      viewportWidth,
-      viewportHeight
-    );
-    expect(imageBuffer).toMatchImageSnapshot({
-      ...snapshotSettings,
-      customSnapshotIdentifier: 'example-vikings',
-    });
-  });
-
-  test('captures visual snapshot of OS category labels example', async () => {
-    // OS category example might need a taller container height for the labels
-    const imageBuffer = await renderExampleToImage(
-      'os-category-labels.html',
-      viewportWidth,
-      viewportHeight
-    );
-    expect(imageBuffer).toMatchImageSnapshot({
-      ...snapshotSettings,
-      customSnapshotIdentifier: 'example-os-category-labels',
-    });
-  });
-
-  test('captures visual snapshot of COVID-19 example', async () => {
-    // COVID example has more data points - might need wider viewport
-    const imageBuffer = await renderExampleToImage(
-      'covid19.html',
-      viewportWidth,
-      viewportHeight
-    );
-    expect(imageBuffer).toMatchImageSnapshot({
-      ...snapshotSettings,
-      customSnapshotIdentifier: 'example-covid19',
-    });
-  });
-
-  test('captures visual snapshot of Ultima series example', async () => {
-    const imageBuffer = await renderExampleToImage(
-      'ultima-series.html',
-      viewportWidth,
-      viewportHeight
-    );
-    expect(imageBuffer).toMatchImageSnapshot({
-      ...snapshotSettings,
-      customSnapshotIdentifier: 'example-ultima-series',
-    });
-  });
-
-  test('captures visual snapshot of custom styles example', async () => {
-    const imageBuffer = await renderExampleToImage(
-      'styles.html',
-      viewportWidth,
-      viewportHeight
-    );
-    expect(imageBuffer).toMatchImageSnapshot({
-      ...snapshotSettings,
-      customSnapshotIdentifier: 'example-styles',
+      expect(imageBuffer).toMatchImageSnapshot({
+        ...snapshotSettings,
+        customSnapshotIdentifier: `example-${example.name}`,
+      });
     });
   });
 });
