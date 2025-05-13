@@ -32,7 +32,11 @@ describe('Example Files - Visual Snapshots', () => {
   // Loop through each example and create a test for it
   examples.forEach((example) => {
     test(`captures visual snapshot of ${example.name}`, async () => {
-      const imageBuffer = await renderExampleToImage(example);
+      const imageBuffer = await renderExampleToImage(
+        example,
+        viewportWidth,
+        viewportHeight
+      );
 
       expect(imageBuffer).toMatchImageSnapshot({
         ...snapshotSettings,
