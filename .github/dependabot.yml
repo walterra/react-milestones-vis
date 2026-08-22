@@ -1,0 +1,67 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+      timezone: UTC
+    open-pull-requests-limit: 10
+    reviewers:
+      - walterra
+    labels:
+      - dependencies
+    commit-message:
+      prefix: deps
+      prefix-development: deps
+      include: scope
+    cooldown:
+      default-days: 14
+      semver-major-days: 21
+      semver-patch-days: 7
+    groups:
+      react:
+        patterns:
+          - react
+          - react-dom
+          - '@types/react*'
+          - '@testing-library/*'
+      d3:
+        patterns:
+          - 'd3-*'
+      babel:
+        patterns:
+          - '@babel/*'
+          - 'babel-*'
+      rollup:
+        patterns:
+          - rollup
+          - '@rollup/*'
+          - 'rollup-*'
+      storybook:
+        patterns:
+          - storybook
+          - '@storybook/*'
+          - '@chromatic-com/*'
+      linting:
+        patterns:
+          - eslint
+          - 'eslint-*'
+          - prettier
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+      timezone: UTC
+    labels:
+      - github-actions
+      - ci
+    commit-message:
+      prefix: ci
+      include: scope
+    cooldown:
+      default-days: 14
