@@ -84,9 +84,9 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.
 
-### `yarn test:react16`, `yarn test:react17`, `yarn test:react18`
+### `yarn test:react18`, `yarn test:react19`
 
-Run tests for specific React versions. This is useful for ensuring compatibility across different React versions.
+Run tests against the supported React versions. The compatibility matrix covers React 18.3 and React 19.
 
 ### `yarn test:visual`
 

@@ -1,22 +1,33 @@
-# Development Notes
+# Development notes
 
-- For every update, don't forget to add a note in [CHANGELOG.md](./CHANGELOG.md).
-- To generate self-contained example HTML files:
-  - First run `yarn build` to generate the package bundles
-  - Then run `yarn build:examples`
-  - This will create HTML files in the `examples/` directory with all dependencies included
-  - Each example uses an iife build of react-milestones-vis and demonstrates a different data set and configuration
-  - These self-contained examples are used for visual regression testing
-- How to do a release:
-  - `git checkout main`
-  - Check if [CHANGELOG.md](./CHANGELOG.md) is up to date.
-  - Update the version number in [package.json](./package.json).
-  - `git commit -m "Bump version to <version-number>. ..."`
-  - `git tag <version-number>`
-  - `yarn build-storybook`
-  - `yarn deploy-storybook`
-  - `yarn build:examples` (to update the examples with the latest version)
-  - `git push origin main`
-  - `git push --tags`
-  - `npm publish`
-  - Add version changelog to GitHub release https://github.com/walterra/react-milestones-vis/tags
+## Validation
+
+```bash
+yarn check:all
+yarn test:supported
+nyarn build
+yarn build-storybook
+```
+
+Visual regression tests additionally require `HTML2IMG_RENDER_URL` and `HTML2IMG_API_KEY`.
+
+## Examples
+
+To generate self-contained example HTML files:
+
+1. Run `yarn build`.
+2. Run `yarn build:examples`.
+
+The generated files in `examples/` bundle their dependencies and are used by visual regression tests.
+
+## Releasing
+
+Add a Changeset for every publishable change:
+
+```bash
+yarn changeset
+```
+
+Commit the generated `.changeset/*.md` file with the change. Merges to `main` create or update an automated release PR; merging that PR publishes to npm and deploys Storybook.
+
+See [docs/RELEASE_PROCESS.md](./docs/RELEASE_PROCESS.md) for setup, security, and emergency-release details.

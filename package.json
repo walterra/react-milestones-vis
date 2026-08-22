@@ -21,21 +21,28 @@
     "Walter Rafelsberger <walter.rafelsberger@elastic.co>"
   ],
   "engines": {
-    "node": ">=16.18"
+    "node": ">=22.18.0"
   },
   "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org",
+    "provenance": true
+  },
   "main": "./build/index.js",
   "module": "./build/index.es.js",
   "types": "./build/index.d.ts",
+  "files": [
+    "build"
+  ],
   "type": "module",
   "scripts": {
     "build": "rollup -c",
     "build:examples": "rollup -c rollup.config-example.js &&node scripts/build-examples.js",
     "test": "jest --config jest.config.js",
     "test:watch": "jest --config jest.config.js --watch",
-    "test:react16": "jest --config jest.config.js --selectProjects=react-16",
-    "test:react17": "jest --config jest.config.js --selectProjects=react-17",
     "test:react18": "jest --config jest.config.js --selectProjects=react-18",
+    "test:react19": "jest --config jest.config.js --selectProjects=react-19",
     "test:visual": "jest --config jest.config.js --selectProjects=visual-snapshots",
     "test:visual:update": "jest --config jest.config.js --selectProjects=visual-snapshots --updateSnapshot",
     "test:react-ssr": "node scripts/test-react-ssr.js",
@@ -45,7 +52,12 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
-    "check:all": "yarn typecheck && yarn lint"
+    "check:all": "yarn typecheck && yarn lint",
+    "test:supported": "yarn test:react18 --runInBand && yarn test:react19 --runInBand",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
+    "prepublishOnly": "yarn check:all && yarn test:supported && yarn build"
   },
   "browserslist": {
     "production": [
@@ -60,13 +72,11 @@
     ]
   },
   "dependencies": {
-    "d3-milestones": "^1.5.0"
+    "d3-milestones": "^2.0.0"
   },
   "peerDependencies": {
-    "@types/react": "^16.12 || ^17.0 || ^18.0",
-    "@types/react-dom": "^16.12 || ^17.0 || ^18.0",
-    "react": "^16.12 || ^17.0 || ^18.0",
-    "react-dom": "^16.12 || ^17.0 || ^18.0"
+    "react": "^18.3.0 || ^19.0.0",
+    "react-dom": "^18.3.0 || ^19.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
@@ -75,6 +85,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
+    "@changesets/cli": "^2.29.8",
     "@chromatic-com/storybook": "^1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.3",
@@ -92,14 +103,15 @@
     "@storybook/react": "^8.6.12",
     "@storybook/react-webpack5": "^8.6.12",
     "@storybook/test": "^8.6.12",
+    "@testing-library/dom": "^10.0.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^12.1.5",
+    "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.0.3",
     "@types/jest-image-snapshot": "^6.4.0",
     "@types/node": "^16.11.17",
-    "@types/react": "18.0.0",
-    "@types/react-dom": "18.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "axios": "^1.9.0",
@@ -116,23 +128,20 @@
     "jest-image-snapshot": "^6.4.0",
     "postcss": "^8.4.5",
     "prettier": "3.5.3",
-    "react": "18.0.0",
-    "react-16": "npm:react@16.14.0",
-    "react-17": "npm:react@17.0.2",
-    "react-18": "npm:react@18.0.0",
-    "react-dom": "18.0.0",
-    "react-dom-16": "npm:react-dom@16.14.0",
-    "react-dom-17": "npm:react-dom@17.0.2",
-    "react-dom-18": "npm:react-dom@18.0.0",
+    "react": "19.2.8",
+    "react-18": "npm:react@18.3.1",
+    "react-19": "npm:react@19.2.8",
+    "react-dom": "19.2.8",
+    "react-dom-18": "npm:react-dom@18.3.1",
+    "react-dom-19": "npm:react-dom@19.2.8",
     "rollup": "^4.40.2",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-serve": "^3.0.0",
     "storybook": "^8.6.12",
-    "testing-library-react-16": "npm:@testing-library/react@^11",
-    "testing-library-react-17": "npm:@testing-library/react@^12",
-    "testing-library-react-18": "npm:@testing-library/react@^13",
+    "testing-library-react-18": "npm:@testing-library/react@^16.3.0",
+    "testing-library-react-19": "npm:@testing-library/react@^16.3.0",
     "ts-jest": "^29.3.2",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3",
