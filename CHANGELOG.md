@@ -1,10 +1,5 @@
 ## [`main`](https://github.com/walterra/react-milestones-vis/tree/main)
 
-- Updated `d3-milestones` to `v2.0.0`.
-- Added React 19 support and set the supported React range to 18.3–19.
-- Updated the test matrix to React 18.3 and React 19.2.
-- Updated the Node.js requirement to `22.18`.
-- Updated `d3-milestones` to `v1.5.0`.
 - Added support for `renderCallback`.
 - Added support for ordinal scales as an alternative to time scales.
 - Added `yarn build:examples` script to generate self-contained HTML examples.

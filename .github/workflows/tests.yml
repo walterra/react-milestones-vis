@@ -40,6 +40,7 @@ jobs:
         run: yarn build-storybook
 
       - name: Run visual tests
+        if: github.actor != 'dependabot[bot]'
         env:
           HTML2IMG_RENDER_URL: ${{ secrets.HTML2IMG_RENDER_URL }}
           HTML2IMG_API_KEY: ${{ secrets.HTML2IMG_API_KEY }}
