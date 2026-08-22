@@ -29,11 +29,10 @@ jobs:
       - name: Run linting
         run: yarn lint
 
-      - name: Run tests (all React versions)
+      - name: Run tests (all supported React versions)
         run: |
-          yarn test:react16
-          yarn test:react17
           yarn test:react18
+          yarn test:react19
 
       - name: Run visual tests
         env:
