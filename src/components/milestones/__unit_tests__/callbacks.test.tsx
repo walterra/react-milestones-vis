@@ -6,6 +6,7 @@ import { vikingsData } from './test-utils';
 
 describe('Milestones Component - Callbacks', () => {
   test('calls renderCallback after rendering', async () => {
+    // Create a mock function for renderCallback
     const mockRenderCallback = jest.fn();
 
     render(
@@ -22,6 +23,7 @@ describe('Milestones Component - Callbacks', () => {
     );
 
     await waitFor(() => {
+      // Check if the callback was called
       expect(mockRenderCallback).toHaveBeenCalled();
     });
   });
@@ -46,6 +48,7 @@ describe('Milestones Component - Callbacks', () => {
       />
     );
 
+    // Wait for d3-milestones to render and bind events to a label.
     const label = await waitFor(() => {
       const renderedLabel = container.querySelector('.milestones-label');
       expect(renderedLabel).toBeInTheDocument();
@@ -67,6 +70,7 @@ describe('Milestones Component - Callbacks', () => {
   });
 
   test('calls renderCallback after component updates', async () => {
+    // Create a mock function for the update callback
     const mockRenderCallback = jest.fn();
 
     const { rerender } = render(
@@ -83,11 +87,14 @@ describe('Milestones Component - Callbacks', () => {
     );
 
     await waitFor(() => {
+      // Check if the callback was called at least once
       expect(mockRenderCallback).toHaveBeenCalled();
     });
 
+    // Reset the mock to clearly see new calls
     mockRenderCallback.mockClear();
 
+    // Update with new data
     const newData = [
       ...vikingsData,
       {
@@ -96,6 +103,7 @@ describe('Milestones Component - Callbacks', () => {
       },
     ];
 
+    // Rerender with new data
     rerender(
       <Milestones
         data={newData}
@@ -109,7 +117,9 @@ describe('Milestones Component - Callbacks', () => {
       />
     );
 
+    // Wait for re-rendering to complete
     await waitFor(() => {
+      // Check if the callback was called after update
       expect(mockRenderCallback).toHaveBeenCalled();
     });
   });
