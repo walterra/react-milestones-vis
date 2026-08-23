@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { Milestones } from '../milestones';
+import { MilestonesEventPayload } from '../types';
 import { vikingsData } from './test-utils';
 
 describe('Milestones Component - Callbacks', () => {
   test('calls renderCallback after rendering', async () => {
-    // Create a mock function for renderCallback
     const mockRenderCallback = jest.fn();
 
     render(
@@ -22,17 +22,17 @@ describe('Milestones Component - Callbacks', () => {
     );
 
     await waitFor(() => {
-      // Check if the callback was called
       expect(mockRenderCallback).toHaveBeenCalled();
     });
   });
 
-  test('calls onEventClick handler when provided', async () => {
-    // Create a mock function for onClick
-    const onEventClick = jest.fn();
+  test('passes mapped and source data to all event callbacks', async () => {
+    const onEventClick = jest.fn<void, [MilestonesEventPayload<typeof vikingsData[number]>]>();
+    const onEventMouseOver = jest.fn<void, [MilestonesEventPayload<typeof vikingsData[number]>]>();
+    const onEventMouseLeave = jest.fn<void, [MilestonesEventPayload<typeof vikingsData[number]>]>();
 
     const { container } = render(
-      <Milestones
+      <Milestones<typeof vikingsData[number]>
         data={vikingsData}
         aggregateBy="year"
         mapping={{
@@ -41,21 +41,32 @@ describe('Milestones Component - Callbacks', () => {
         }}
         parseTime="%Y"
         onEventClick={onEventClick}
+        onEventMouseOver={onEventMouseOver}
+        onEventMouseLeave={onEventMouseLeave}
       />
     );
 
-    // Wait for rendering to complete
-    await waitFor(() => {
-      expect(container.querySelector('.milestones')).toBeInTheDocument();
+    const label = await waitFor(() => {
+      const renderedLabel = container.querySelector('.milestones-label');
+      expect(renderedLabel).toBeInTheDocument();
+      return renderedLabel as Element;
     });
+    const expectedPayload = {
+      text: vikingsData[0].title,
+      timestamp: vikingsData[0].year,
+      attributes: vikingsData[0],
+    };
 
-    // Note: We can't trigger click events in this test because d3-milestones
-    // handles them internally, but we can verify the component rendered with the prop
-    expect(container.firstChild).toBeInTheDocument();
+    fireEvent.click(label);
+    fireEvent.mouseOver(label);
+    fireEvent.mouseLeave(label);
+
+    expect(onEventClick).toHaveBeenCalledWith(expectedPayload);
+    expect(onEventMouseOver).toHaveBeenCalledWith(expectedPayload);
+    expect(onEventMouseLeave).toHaveBeenCalledWith(expectedPayload);
   });
 
   test('calls renderCallback after component updates', async () => {
-    // Create a mock function for the update callback
     const mockRenderCallback = jest.fn();
 
     const { rerender } = render(
@@ -72,14 +83,11 @@ describe('Milestones Component - Callbacks', () => {
     );
 
     await waitFor(() => {
-      // Check if the callback was called at least once
       expect(mockRenderCallback).toHaveBeenCalled();
     });
 
-    // Reset the mock to clearly see new calls
     mockRenderCallback.mockClear();
 
-    // Update with new data
     const newData = [
       ...vikingsData,
       {
@@ -88,7 +96,6 @@ describe('Milestones Component - Callbacks', () => {
       },
     ];
 
-    // Rerender with new data
     rerender(
       <Milestones
         data={newData}
@@ -102,9 +109,7 @@ describe('Milestones Component - Callbacks', () => {
       />
     );
 
-    // Wait for re-rendering to complete
     await waitFor(() => {
-      // Check if the callback was called after update
       expect(mockRenderCallback).toHaveBeenCalled();
     });
   });

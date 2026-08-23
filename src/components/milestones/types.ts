@@ -123,6 +123,18 @@ type MilestonesScaleType = typeof milestonesScaleType[number];
 export const isScaleType = (arg: unknown): arg is MilestonesScaleType =>
   milestonesScaleType.includes(arg as MilestonesScaleType);
 
+/**
+ * Data passed to milestone label event callbacks.
+ *
+ * `text` and `timestamp` are the values selected by the configured mapping,
+ * while `attributes` contains the original source data object.
+ */
+export interface MilestonesEventPayload<T = unknown> {
+  text: string;
+  timestamp: string | number | Date | undefined;
+  attributes: T;
+}
+
 export interface MilestonesOptions<T = unknown> {
   /**
    * Aggregation level of time.
@@ -177,17 +189,20 @@ export interface MilestonesOptions<T = unknown> {
    */
   data: Array<T>;
   /**
-   * Optional label click handler
+   * Optional label click handler. Receives the mapped event values and the
+   * original source data object.
    */
-  onEventClick?: () => void;
+  onEventClick?: (event: MilestonesEventPayload<T>) => void;
   /**
-   * Optional label leave handler
+   * Optional label leave handler. Receives the mapped event values and the
+   * original source data object.
    */
-  onEventMouseLeave?: () => void;
+  onEventMouseLeave?: (event: MilestonesEventPayload<T>) => void;
   /**
-   * Optional label over handler
+   * Optional label over handler. Receives the mapped event values and the
+   * original source data object.
    */
-  onEventMouseOver?: () => void;
+  onEventMouseOver?: (event: MilestonesEventPayload<T>) => void;
   /**
    * Callback that executes after rendering is complete
    */
