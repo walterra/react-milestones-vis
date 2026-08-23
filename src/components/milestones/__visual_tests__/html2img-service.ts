@@ -9,10 +9,13 @@ const HTML2IMG_RENDER_URL =
   process.env.HTML2IMG_RENDER_URL || 'http://localhost:3000/render';
 const HTML2IMG_API_KEY = process.env.HTML2IMG_API_KEY || '';
 
-interface HtmlToImageOptions {
-  width: number;
-  height: number;
-  format?: 'png' | 'jpeg';
+interface HtmlToImageRequest {
+  html: string;
+  viewport: {
+    width: number;
+    height: number;
+  };
+  format: 'png' | 'jpeg';
   css?: string;
   javascript?: string;
   clipSelector?: string;
@@ -45,7 +48,7 @@ export async function renderHtmlToImage(
       }
 
       // Prepare the request data
-      const requestData: any = {
+      const requestData: HtmlToImageRequest = {
         html,
         viewport: {
           width,

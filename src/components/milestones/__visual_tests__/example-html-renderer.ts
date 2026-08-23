@@ -1,6 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { examples } from './example-configurations';
 import { renderHtmlToImage } from './html2img-service';
+
+type ExampleConfiguration = (typeof examples)[number];
 
 /**
  * Loads file content from the examples directory
@@ -51,7 +54,7 @@ export function loadCommonResources(): { css: string; javascript: string } {
  * @returns A Buffer containing the image data
  */
 export async function renderExampleToImage(
-  example: any,
+  example: ExampleConfiguration,
   width = 800,
   height = 600,
   format: 'png' | 'jpeg' = 'png'
