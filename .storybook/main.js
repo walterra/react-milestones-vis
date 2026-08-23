@@ -4,7 +4,6 @@ const config = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-docs',
-    '@storybook/addon-webpack5-compiler-babel',
     '@chromatic-com/storybook'
   ],
 
@@ -25,6 +24,13 @@ const config = {
   },
 
   webpackFinal: async (config) => {
+    config.module.rules.push({
+      test: /\.[jt]sx?$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+      },
+    });
     config.module.rules.push({
       test: /\.less$/,
       use: [
