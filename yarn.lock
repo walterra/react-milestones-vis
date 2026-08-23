@@ -34,7 +34,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-8.0.0.tgz#e780eb6052d8ceeaeadd3a6cd82dda470a945622"
   integrity sha512-DOjnob/cXOUgDOozCDeq/aK2p5y8dUIVdf6tNhEV1HQRd6I8aQ4f4fbtHRVEvb6lP3BGomrKHiS8ICAASSVQSw==
 
-"@babel/core@^7.1.0", "@babel/core@^7.12.3", "@babel/core@^7.23.9", "@babel/core@^7.24.4", "@babel/core@^7.26.0", "@babel/core@^7.27.4", "@babel/core@^7.28.0", "@babel/core@^7.7.2", "@babel/core@^7.8.0":
+"@babel/core@^7.1.0", "@babel/core@^7.12.3", "@babel/core@^7.23.9", "@babel/core@^7.24.4", "@babel/core@^7.27.4", "@babel/core@^7.28.0", "@babel/core@^7.7.2", "@babel/core@^7.8.0":
   version "7.29.7"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.29.7.tgz#80c10b17248082968b57a857b91640971f2070f7"
   integrity sha512-RgHBCvtjbOK2gXSNBNIkNoEc9qoVEtau3hj8gEqKQuL3HZAibKarWFEI3Lfm6EYKkLalOh8eSrj9b+ch9H/VBA==
@@ -2482,14 +2482,6 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
-"@storybook/addon-webpack5-compiler-babel@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-webpack5-compiler-babel/-/addon-webpack5-compiler-babel-4.0.1.tgz#6306df1b09cd913a998ff49900c89dfbd66cfb2d"
-  integrity sha512-1oTh6264hFGl40D5YCPhnpuirXeBSNo+7L8MZ4pKMLRLOsnK8CKC3Yp4L+tGySsJFsem8RXau8eZAQskf2Re/g==
-  dependencies:
-    "@babel/core" "^7.26.0"
-    babel-loader "^10.0.0"
-
 "@storybook/builder-webpack5@10.5.10":
   version "10.5.10"
   resolved "https://registry.yarnpkg.com/@storybook/builder-webpack5/-/builder-webpack5-10.5.10.tgz#104fc4b9e832ef00921db1594228a959fbaadc31"
@@ -3682,7 +3674,7 @@ babel-jest@^30.4.1:
     graceful-fs "^4.2.11"
     slash "^3.0.0"
 
-babel-loader@^10.0.0:
+babel-loader@^10.1.1:
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-10.1.1.tgz#ce9748e85b7071eb88006e3cfa9e6cf14eeb97c5"
   integrity sha512-JwKSzk2kjIe7mgPK+/lyZ2QAaJcpahNAdM+hgR2HI8D0OJVkdj8Rl6J3kaLYki9pwF7P2iWnD8qVv80Lq1ABtg==
