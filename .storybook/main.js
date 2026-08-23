@@ -4,10 +4,8 @@ const config = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-docs',
-    '@storybook/addon-essentials',
-    '@storybook/addon-mdx-gfm',
     '@storybook/addon-webpack5-compiler-babel',
-    '@chromatic-com/storybook',
+    '@chromatic-com/storybook'
   ],
 
   framework: {
