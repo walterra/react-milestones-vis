@@ -11,7 +11,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 export default {
   input: 'src/examples/example_boilerplate.tsx',
   output: {
-    file: 'build/example_boilerplate.js',
+    file: 'examples/common/example_boilerplate.js',
     format: 'iife',
     name: 'ExampleBundle',
     sourcemap: true,
