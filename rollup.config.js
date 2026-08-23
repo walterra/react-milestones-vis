@@ -25,7 +25,7 @@ export default {
     commonjs(),
     postcss(),
     typescript({
-      tsconfig: './tsconfig.json',
+      tsconfig: './tsconfig.build.json',
       sourceMap: true,
       noEmit: false,
       declaration: true,

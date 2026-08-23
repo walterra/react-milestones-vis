@@ -138,29 +138,14 @@ const commonCssPath = path.join(examplesCommonDir, 'd3-milestones.css');
 fs.writeFileSync(commonCssPath, milestonesCss);
 console.log(`Generated ${commonCssPath}`);
 
-// Load react-milestones-vis iife example script
-const reactMilestonesVisExamplePath = path.join(
-  __dirname,
-  '../build/example_boilerplate.js'
-);
-
-// Check if the iife build exists
-if (!fs.existsSync(reactMilestonesVisExamplePath)) {
-  console.error(
-    'Error: iife build not found. Please run "yarn build:example-rollup" first to generate the UMD bundle.'
-  );
+// Rollup writes the example bundle directly to examples/common so it remains
+// separate from the publishable package build output.
+const commonJsPath = path.join(examplesCommonDir, 'example_boilerplate.js');
+if (!fs.existsSync(commonJsPath)) {
+  console.error('Error: example bundle not found. Run "yarn build:examples".');
   process.exit(1);
 }
-
-// Copy the example_boilerplate.js file to examples/common directory
-const commonJsPath = path.join(examplesCommonDir, 'example_boilerplate.js');
-fs.copyFileSync(reactMilestonesVisExamplePath, commonJsPath);
-console.log(`Copied example_boilerplate.js to ${commonJsPath}`);
-
-// We're now using the pre-built iife bundle from the build directory
-// This is important because we want to run visual regression tests against
-// the actual built package, not a development version
-console.log('Using pre-built iife bundle for examples...');
+console.log(`Using example bundle ${commonJsPath}`);
 
 // Generate examples using the pre-built iife bundle
 async function generateExamples() {
