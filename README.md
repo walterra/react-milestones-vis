@@ -68,6 +68,29 @@ export const ProjectSteps = () => <Milestones
 
 `react-milestones-vis` is based on the d3 based library `d3-milestones`: https://github.com/walterra/d3-milestones
 
+## Data mapping
+
+The `mapping` prop maps milestone properties to fields in each data object. In addition to `timestamp`, `value`, `text`, `url`, `category`, and `entries`, it supports custom DOM IDs and inline style objects:
+
+```tsx
+<Milestones
+  data={[{
+    date: '2024-01-01',
+    label: 'Version 1.0',
+    elementId: 'version-1',
+    bulletCss: { backgroundColor: 'royalblue', borderColor: 'navy' },
+  }]}
+  mapping={{
+    timestamp: 'date',
+    text: 'label',
+    id: 'elementId',
+    bulletStyle: 'bulletCss',
+  }}
+/>
+```
+
+Use `categoryStyle` for style objects on category records. All supported mapping keys are `category`, `entries`, `timestamp`, `value`, `text`, `url`, `id`, `textStyle`, `titleStyle`, `categoryStyle`, and `bulletStyle`.
+
 ## Label distribution
 
 The `distribution` prop accepts the presets `top-bottom`, `top`, and `bottom`. It also supports data-driven object and function forms.
