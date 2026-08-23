@@ -40,9 +40,67 @@ export const isOrientation = (arg: unknown): arg is MilestonesOrientation =>
   milestonesOrientation.includes(arg as MilestonesOrientation);
 
 const milestonesDistribution = ['top-bottom', 'top', 'bottom'] as const;
-type MilestonesDistribution = typeof milestonesDistribution[number];
-export const isDistribution = (arg: unknown): arg is MilestonesDistribution =>
-  milestonesDistribution.includes(arg as MilestonesDistribution);
+export type MilestonesDistributionPreset = typeof milestonesDistribution[number];
+export type MilestonesDistributionValue = string | number | boolean | null;
+
+/** Declarative field-based label distribution. */
+export interface MilestonesDistributionObject {
+  field: string;
+  top: MilestonesDistributionValue | MilestonesDistributionValue[];
+  bottom: MilestonesDistributionValue | MilestonesDistributionValue[];
+}
+
+/** Grouped event data passed to a custom distribution function. */
+export interface MilestonesDistributionData<T = unknown> {
+  values: T[];
+  [key: string]: unknown;
+}
+
+/** Custom label distribution function. `true` places a group above the timeline. */
+export type MilestonesDistributionFunction<T = unknown> = (
+  data: MilestonesDistributionData<T>,
+  index: number
+) => boolean;
+
+export type MilestonesDistribution<T = unknown> =
+  | MilestonesDistributionPreset
+  | MilestonesDistributionObject
+  | MilestonesDistributionFunction<T>;
+
+const isDistributionValue = (arg: unknown): arg is MilestonesDistributionValue =>
+  arg === null || ['string', 'number', 'boolean'].includes(typeof arg);
+
+export const isDistributionObject = (
+  arg: unknown
+): arg is MilestonesDistributionObject =>
+  typeof arg === 'object' &&
+  arg !== null &&
+  !Array.isArray(arg) &&
+  typeof (arg as MilestonesDistributionObject).field === 'string' &&
+  (arg as MilestonesDistributionObject).field.length > 0 &&
+  ['top', 'bottom'].every((key) => {
+    const value = (arg as Record<string, unknown>)[key];
+    return Array.isArray(value)
+      ? value.length > 0 && value.every(isDistributionValue)
+      : isDistributionValue(value);
+  });
+
+export function isDistributionFunction<T = unknown>(
+  arg: unknown
+): arg is MilestonesDistributionFunction<T> {
+  return typeof arg === 'function';
+}
+
+export function isDistribution<T = unknown>(
+  arg: unknown
+): arg is MilestonesDistribution<T> {
+  return (
+    (typeof arg === 'string' &&
+      milestonesDistribution.includes(arg as MilestonesDistributionPreset)) ||
+    isDistributionObject(arg) ||
+    isDistributionFunction<T>(arg)
+  );
+}
 
 type MilestonesRange = [number, number];
 export const isRange = (arg: unknown): arg is MilestonesRange =>
@@ -82,9 +140,9 @@ export interface MilestonesOptions<T = unknown> {
    */
   orientation?: MilestonesOrientation;
   /**
-   * Layout orientation, `horizontal` (default) and `vertical` are available.
+   * Label distribution preset, declarative field mapping, or custom function.
    */
-  distribution?: MilestonesDistribution;
+  distribution?: MilestonesDistribution<T>;
   /**
    * Scale type, `time` (default) or `ordinal` are available.
    */

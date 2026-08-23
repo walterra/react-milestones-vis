@@ -68,6 +68,42 @@ export const ProjectSteps = () => <Milestones
 
 `react-milestones-vis` is based on the d3 based library `d3-milestones`: https://github.com/walterra/d3-milestones
 
+## Label distribution
+
+The `distribution` prop accepts the presets `top-bottom`, `top`, and `bottom`. It also supports data-driven object and function forms.
+
+Use a declarative object to place labels according to an event field. `top` and `bottom` accept a single string, number, boolean, or `null`, or arrays of those values. This example places Gandalf's events above the timeline and Frodo's below it:
+
+```tsx
+<Milestones
+  aggregateBy="day"
+  data={lotrEvents}
+  distribution={{
+    field: 'character',
+    top: 'Gandalf',
+    bottom: 'Frodo',
+  }}
+  optimize
+  parseTime="%d.%m.%Y"
+/>
+```
+
+Use a function for grouped or computed logic. It receives the grouped event data and group index, and returns `true` for top/left or `false` for bottom/right. This equivalent function keeps a date above the timeline when any event in its group belongs to Gandalf:
+
+```tsx
+<Milestones
+  aggregateBy="day"
+  data={lotrEvents}
+  distribution={(group) =>
+    group.values.some((event) => event.character === 'Gandalf')
+  }
+  optimize
+  parseTime="%d.%m.%Y"
+/>
+```
+
+For vertical timelines, `top` means left and `bottom` means right.
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -10,6 +10,7 @@ import dataOsCategoryLabels from '../../node_modules/d3-milestones/src/stories/a
 import dataCovid19 from '../../node_modules/d3-milestones/src/stories/assets/covid19.json';
 import dataUltima from '../../node_modules/d3-milestones/src/stories/assets/ultima-series.json';
 import dataStyles from '../../node_modules/d3-milestones/src/stories/assets/styles.json';
+import dataLotr from '../../node_modules/d3-milestones/src/stories/assets/lotr.json';
 
 const meta = {
   title: 'react-milestones-vis',
@@ -117,5 +118,37 @@ export const Styles: Story = {
       text: 'text',
     },
     data: dataStyles,
+  },
+};
+
+export const DeclarativeDistribution: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    aggregateBy: 'day',
+    data: dataLotr,
+    distribution: {
+      field: 'character',
+      top: 'Gandalf',
+      bottom: 'Frodo',
+    },
+    optimize: true,
+    parseTime: '%d.%m.%Y',
+  },
+};
+
+export const FunctionDistribution: Story = {
+  render: () => (
+    <Milestones
+      aggregateBy="day"
+      data={dataLotr}
+      distribution={(group) =>
+        group.values.some((event) => event.character === 'Gandalf')
+      }
+      optimize
+      parseTime="%d.%m.%Y"
+    />
+  ),
+  args: {
+    data: dataLotr,
   },
 };

@@ -27,6 +27,9 @@ export default {
     typescript({
       tsconfig: './tsconfig.json',
       sourceMap: true,
+      noEmit: false,
+      declaration: true,
+      declarationDir: './build',
       // inlineSources: isDevelopment,
     }),
   ],

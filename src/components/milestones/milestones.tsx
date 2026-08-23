@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, FC } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 
 // @ts-ignore Could not find a declaration file for module 'd3-milestones'.
 import milestones from 'd3-milestones';
@@ -17,36 +17,36 @@ import {
   MilestonesOptions,
 } from './types';
 
-interface IMilestones {
-  aggregateBy: (d: MilestonesOptions['aggregateBy']) => IMilestones;
-  mapping: (d: MilestonesOptions['mapping']) => IMilestones;
-  optimize: (d: MilestonesOptions['optimize']) => IMilestones;
-  autoResize: (d: MilestonesOptions['autoResize']) => IMilestones;
-  orientation: (d: MilestonesOptions['orientation']) => IMilestones;
-  distribution: (d: MilestonesOptions['distribution']) => IMilestones;
-  scaleType: (d: MilestonesOptions['scaleType']) => IMilestones;
-  parseTime: (d: MilestonesOptions['parseTime']) => IMilestones;
-  labelFormat: (d: MilestonesOptions['labelFormat']) => IMilestones;
-  urlTarget: (d: MilestonesOptions['urlTarget']) => IMilestones;
-  useLabels: (d: MilestonesOptions['useLabels']) => IMilestones;
-  range: (d: MilestonesOptions['range']) => IMilestones;
-  onEventClick: (d: MilestonesOptions['onEventClick']) => IMilestones;
-  onEventMouseLeave: (d: MilestonesOptions['onEventMouseLeave']) => IMilestones;
-  onEventMouseOver: (d: MilestonesOptions['onEventMouseOver']) => IMilestones;
-  renderCallback: (d: MilestonesOptions['renderCallback']) => IMilestones;
-  render: (d: unknown[]) => void;
+interface IMilestones<T> {
+  aggregateBy: (d: MilestonesOptions<T>['aggregateBy']) => IMilestones<T>;
+  mapping: (d: MilestonesOptions<T>['mapping']) => IMilestones<T>;
+  optimize: (d: MilestonesOptions<T>['optimize']) => IMilestones<T>;
+  autoResize: (d: MilestonesOptions<T>['autoResize']) => IMilestones<T>;
+  orientation: (d: MilestonesOptions<T>['orientation']) => IMilestones<T>;
+  distribution: (d: MilestonesOptions<T>['distribution']) => IMilestones<T>;
+  scaleType: (d: MilestonesOptions<T>['scaleType']) => IMilestones<T>;
+  parseTime: (d: MilestonesOptions<T>['parseTime']) => IMilestones<T>;
+  labelFormat: (d: MilestonesOptions<T>['labelFormat']) => IMilestones<T>;
+  urlTarget: (d: MilestonesOptions<T>['urlTarget']) => IMilestones<T>;
+  useLabels: (d: MilestonesOptions<T>['useLabels']) => IMilestones<T>;
+  range: (d: MilestonesOptions<T>['range']) => IMilestones<T>;
+  onEventClick: (d: MilestonesOptions<T>['onEventClick']) => IMilestones<T>;
+  onEventMouseLeave: (d: MilestonesOptions<T>['onEventMouseLeave']) => IMilestones<T>;
+  onEventMouseOver: (d: MilestonesOptions<T>['onEventMouseOver']) => IMilestones<T>;
+  renderCallback: (d: MilestonesOptions<T>['renderCallback']) => IMilestones<T>;
+  render: (d: T[]) => void;
 }
 
 /**
  * React Milestones Visualization
  */
-export const Milestones: FC<MilestonesOptions> = (props) => {
+export const Milestones = <T,>(props: MilestonesOptions<T>): ReactElement => {
   const milestonesDivEl = useRef<HTMLDivElement>(null);
-  const [vis, setVis] = useState<IMilestones>();
+  const [vis, setVis] = useState<IMilestones<T>>();
 
   useEffect(() => {
     if (milestonesDivEl.current !== null) {
-      setVis(milestones(milestonesDivEl.current) as IMilestones);
+      setVis(milestones(milestonesDivEl.current) as IMilestones<T>);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [milestonesDivEl.current]);
