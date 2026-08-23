@@ -6,5 +6,6 @@ export type {
   MilestonesDistributionObject,
   MilestonesDistributionPreset,
   MilestonesDistributionValue,
+  MilestonesMapping,
   MilestonesOptions,
 } from './types';

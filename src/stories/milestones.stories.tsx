@@ -121,6 +121,37 @@ export const Styles: Story = {
   },
 };
 
+export const CustomMappingFields: Story = {
+  render: (args) => <Milestones {...args} />,
+  args: {
+    aggregateBy: 'year',
+    parseTime: '%Y',
+    mapping: {
+      category: 'name',
+      entries: 'events',
+      timestamp: 'year',
+      text: 'title',
+      id: 'elementId',
+      categoryStyle: 'categoryCss',
+      bulletStyle: 'bulletCss',
+    },
+    data: [
+      {
+        name: 'Releases',
+        categoryCss: { color: 'royalblue', fontWeight: 'bold' },
+        events: [
+          {
+            year: 2024,
+            title: 'Version 1.0',
+            elementId: 'version-1',
+            bulletCss: { backgroundColor: 'royalblue', borderColor: 'navy' },
+          },
+        ],
+      },
+    ],
+  },
+};
+
 export const DeclarativeDistribution: Story = {
   render: (args) => <Milestones {...args} />,
   args: {

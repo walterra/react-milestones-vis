@@ -5,11 +5,16 @@ const milestonesMappingKeys = [
   'value',     // Used for ordinal scale
   'text',
   'url',
+  'id',
   'textStyle',
   'titleStyle',
+  'categoryStyle',
+  'bulletStyle',
 ] as const;
 type MilestonesMappingKeys = typeof milestonesMappingKeys[number];
-type MilestonesMapping = Record<MilestonesMappingKeys, string>;
+
+/** Maps milestone properties to fields in the supplied data. */
+export type MilestonesMapping = Record<MilestonesMappingKeys, string>;
 export const isPartialMapping = (
   arg: unknown
 ): arg is Partial<MilestonesMapping> =>
