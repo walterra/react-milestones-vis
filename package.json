@@ -46,7 +46,6 @@
     "test:react19": "jest --config jest.config.js --selectProjects=react-19",
     "test:visual": "jest --config jest.config.js --selectProjects=visual-snapshots",
     "test:visual:update": "jest --config jest.config.js --selectProjects=visual-snapshots --updateSnapshot",
-    "test:react-ssr": "node scripts/test-react-ssr.js",
     "test:package": "yarn build && node scripts/test-package-content.js",
     "storybook": "storybook dev -p 6006",
     "deploy-storybook": "gh-pages -d storybook-static",
