@@ -5,11 +5,17 @@
     "declaration": true,
     "declarationDir": "./build"
   },
-  "include": ["src/index.ts", "src/components/**/*.ts", "src/components/**/*.tsx"],
+  "include": [
+    "src/index.ts",
+    "src/**/*.d.ts",
+    "src/components/**/*.ts",
+    "src/components/**/*.tsx"
+  ],
   "exclude": [
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
     "src/**/__unit_tests__/**",
-    "src/**/__visual_tests__/**"
+    "src/**/__visual_tests__/**",
+    "src/**/__type_tests__/**"
   ]
 }

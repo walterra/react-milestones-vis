@@ -1,3 +1,15 @@
+import type {
+  D3MilestonesAdapter,
+  D3MilestonesDistribution,
+  D3MilestonesDistributionData,
+  D3MilestonesDistributionFunction,
+  D3MilestonesDistributionObject,
+  D3MilestonesDistributionPreset,
+  D3MilestonesDistributionValue,
+  D3MilestonesEventPayload,
+  D3MilestonesMapping,
+} from './d3-milestones-adapter';
+
 const milestonesMappingKeys = [
   'category',
   'entries',
@@ -14,7 +26,7 @@ const milestonesMappingKeys = [
 type MilestonesMappingKeys = typeof milestonesMappingKeys[number];
 
 /** Maps milestone properties to fields in the supplied data. */
-export type MilestonesMapping = Record<MilestonesMappingKeys, string>;
+export type MilestonesMapping = D3MilestonesMapping;
 export const isPartialMapping = (
   arg: unknown
 ): arg is Partial<MilestonesMapping> =>
@@ -45,32 +57,22 @@ export const isOrientation = (arg: unknown): arg is MilestonesOrientation =>
   milestonesOrientation.includes(arg as MilestonesOrientation);
 
 const milestonesDistribution = ['top-bottom', 'top', 'bottom'] as const;
-export type MilestonesDistributionPreset = typeof milestonesDistribution[number];
-export type MilestonesDistributionValue = string | number | boolean | null;
+export type MilestonesDistributionPreset = D3MilestonesDistributionPreset;
+export type MilestonesDistributionValue = D3MilestonesDistributionValue;
 
 /** Declarative field-based label distribution. */
-export interface MilestonesDistributionObject {
-  field: string;
-  top: MilestonesDistributionValue | MilestonesDistributionValue[];
-  bottom: MilestonesDistributionValue | MilestonesDistributionValue[];
-}
+export type MilestonesDistributionObject = D3MilestonesDistributionObject;
 
 /** Grouped event data passed to a custom distribution function. */
-export interface MilestonesDistributionData<T = unknown> {
-  values: T[];
-  [key: string]: unknown;
-}
+export type MilestonesDistributionData<T = unknown> =
+  D3MilestonesDistributionData<T>;
 
 /** Custom label distribution function. `true` places a group above the timeline. */
-export type MilestonesDistributionFunction<T = unknown> = (
-  data: MilestonesDistributionData<T>,
-  index: number
-) => boolean;
+export type MilestonesDistributionFunction<T = unknown> =
+  D3MilestonesDistributionFunction<T>;
 
 export type MilestonesDistribution<T = unknown> =
-  | MilestonesDistributionPreset
-  | MilestonesDistributionObject
-  | MilestonesDistributionFunction<T>;
+  D3MilestonesDistribution<T>;
 
 const isDistributionValue = (arg: unknown): arg is MilestonesDistributionValue =>
   arg === null || ['string', 'number', 'boolean'].includes(typeof arg);
@@ -129,61 +131,58 @@ export const isScaleType = (arg: unknown): arg is MilestonesScaleType =>
  * `text` and `timestamp` are the values selected by the configured mapping,
  * while `attributes` contains the original source data object.
  */
-export interface MilestonesEventPayload<T = unknown> {
-  text: string;
-  timestamp: string | number | Date | undefined;
-  attributes: T;
-}
+export type MilestonesEventPayload<T = unknown> =
+  D3MilestonesEventPayload<T>;
 
 export interface MilestonesOptions<T = unknown> {
   /**
    * Aggregation level of time.
    */
-  aggregateBy?: MilestonesAggregateBy;
+  aggregateBy?: Parameters<D3MilestonesAdapter<T>['aggregateBy']>[0];
   /**
    * Map attributes to timestamp/value and text.
    */
-  mapping?: Partial<MilestonesMapping>;
+  mapping?: Parameters<D3MilestonesAdapter<T>['mapping']>[0];
   /**
    * Enable/disable label overlap removal.
    */
-  optimize?: boolean;
+  optimize?: Parameters<D3MilestonesAdapter<T>['optimize']>[0];
   /**
    * Enable/disable automatic resizing.
    */
-  autoResize?: boolean;
+  autoResize?: Parameters<D3MilestonesAdapter<T>['autoResize']>[0];
   /**
    * Layout orientation, `horizontal` (default) and `vertical` are available.
    */
-  orientation?: MilestonesOrientation;
+  orientation?: Parameters<D3MilestonesAdapter<T>['orientation']>[0];
   /**
    * Label distribution preset, declarative field mapping, or custom function.
    */
-  distribution?: MilestonesDistribution<T>;
+  distribution?: Parameters<D3MilestonesAdapter<T>['distribution']>[0];
   /**
    * Scale type, `time` (default) or `ordinal` are available.
    */
-  scaleType?: MilestonesScaleType;
+  scaleType?: Parameters<D3MilestonesAdapter<T>['scaleType']>[0];
   /**
    * Custom time parser.
    */
-  parseTime?: string;
+  parseTime?: Parameters<D3MilestonesAdapter<T>['parseTime']>[0];
   /**
    * Custom label format.
    */
-  labelFormat?: string;
+  labelFormat?: Parameters<D3MilestonesAdapter<T>['labelFormat']>[0];
   /**
    * Target attribute for URLs.
    */
-  urlTarget?: MilestonesUrlTarget;
+  urlTarget?: Parameters<D3MilestonesAdapter<T>['urlTarget']>[0];
   /**
    * Enable/disable label display.
    */
-  useLabels?: boolean;
+  useLabels?: Parameters<D3MilestonesAdapter<T>['useLabels']>[0];
   /**
    * Custom date range for the timeline. Useful to extend bounds beyound the dataset.
    */
-  range?: MilestonesRange;
+  range?: Parameters<D3MilestonesAdapter<T>['range']>[0];
   /**
    * Array of data elements.
    */
@@ -206,5 +205,5 @@ export interface MilestonesOptions<T = unknown> {
   /**
    * Callback that executes after rendering is complete
    */
-  renderCallback?: () => void;
+  renderCallback?: Parameters<D3MilestonesAdapter<T>['renderCallback']>[0];
 }
