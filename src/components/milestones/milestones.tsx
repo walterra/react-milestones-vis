@@ -14,8 +14,25 @@ import {
   isRange,
   isScaleType,
   isUrlTarget,
+  MilestonesEventPayload,
   MilestonesOptions,
 } from './types';
+
+interface D3MilestonesEventTarget extends EventTarget {
+  __data__: MilestonesEventPayload<unknown>;
+}
+
+const eventPayloadCallback = <T,>(
+  callback: (event: MilestonesEventPayload<T>) => void
+): ((eventOrPayload: unknown) => void) => (eventOrPayload): void => {
+  if (eventOrPayload instanceof Event) {
+    const target = eventOrPayload.currentTarget as D3MilestonesEventTarget;
+    callback(target.__data__ as MilestonesEventPayload<T>);
+    return;
+  }
+
+  callback(eventOrPayload as MilestonesEventPayload<T>);
+};
 
 interface IMilestones<T> {
   aggregateBy: (d: MilestonesOptions<T>['aggregateBy']) => IMilestones<T>;
@@ -30,9 +47,9 @@ interface IMilestones<T> {
   urlTarget: (d: MilestonesOptions<T>['urlTarget']) => IMilestones<T>;
   useLabels: (d: MilestonesOptions<T>['useLabels']) => IMilestones<T>;
   range: (d: MilestonesOptions<T>['range']) => IMilestones<T>;
-  onEventClick: (d: MilestonesOptions<T>['onEventClick']) => IMilestones<T>;
-  onEventMouseLeave: (d: MilestonesOptions<T>['onEventMouseLeave']) => IMilestones<T>;
-  onEventMouseOver: (d: MilestonesOptions<T>['onEventMouseOver']) => IMilestones<T>;
+  onEventClick: (d: (event: unknown) => void) => IMilestones<T>;
+  onEventMouseLeave: (d: (event: unknown) => void) => IMilestones<T>;
+  onEventMouseOver: (d: (event: unknown) => void) => IMilestones<T>;
   renderCallback: (d: MilestonesOptions<T>['renderCallback']) => IMilestones<T>;
   render: (d: T[]) => void;
 }
@@ -85,11 +102,12 @@ export const Milestones = <T,>(props: MilestonesOptions<T>): ReactElement => {
       isUrlTarget(urlTarget) && vis.urlTarget(urlTarget);
       typeof useLabels === 'boolean' && vis.useLabels(useLabels);
       isRange(range) && vis.range(range);
-      typeof onEventClick === 'function' && vis.onEventClick(onEventClick);
+      typeof onEventClick === 'function' &&
+        vis.onEventClick(eventPayloadCallback(onEventClick));
       typeof onEventMouseLeave === 'function' &&
-        vis.onEventMouseLeave(onEventMouseLeave);
+        vis.onEventMouseLeave(eventPayloadCallback(onEventMouseLeave));
       typeof onEventMouseOver === 'function' &&
-        vis.onEventMouseOver(onEventMouseOver);
+        vis.onEventMouseOver(eventPayloadCallback(onEventMouseOver));
       typeof renderCallback === 'function' &&
         vis.renderCallback(renderCallback);
 

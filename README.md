@@ -127,6 +127,28 @@ Use a function for grouped or computed logic. It receives the grouped event data
 
 For vertical timelines, `top` means left and `bottom` means right.
 
+## Event callbacks
+
+`onEventClick`, `onEventMouseOver`, and `onEventMouseLeave` receive a `MilestonesEventPayload<T>`. The payload contains the mapped `text` and `timestamp` values plus the original source object in `attributes`:
+
+```tsx
+interface Release {
+  releasedAt: string;
+  title: string;
+  version: string;
+}
+
+<Milestones<Release>
+  data={releases}
+  mapping={{ timestamp: 'releasedAt', text: 'title' }}
+  onEventClick={({ text, timestamp, attributes }) => {
+    console.log(text, timestamp, attributes.version);
+  }}
+/>
+```
+
+The component generic (`Release` above) is preserved by `MilestonesEventPayload<Release>`, so callback code can access source-specific fields without casts. `timestamp` is `undefined` when no timestamp mapping applies, such as an ordinal timeline configured only with `value`.
+
 ## Available Scripts
 
 In the project directory, you can run:
