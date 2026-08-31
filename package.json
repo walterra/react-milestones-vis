@@ -143,7 +143,7 @@
     "testing-library-react-19": "npm:@testing-library/react@^16.3.0",
     "ts-jest": "^29.3.2",
     "tslib": "^2.8.1",
-    "typescript": "^5.8.3",
+    "typescript": "^6.0.3",
     "web-vitals": "^6.0.1",
     "webpack": "^5.65.0"
   }
