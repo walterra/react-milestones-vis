@@ -9439,9 +9439,9 @@ watchpack@^2.4.1:
     graceful-fs "^4.1.2"
 
 web-vitals@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-6.0.1.tgz#774de5fba561154313bcc09d125990f046fdd174"
-  integrity sha512-iF3+kno3Anlqi5fPVTQk9gYLfsCiL8P69Hof+AmZyVVx00E3e/BiGVvu+EsOy6jvTLqTKuiaRloPyw0JtdKbSw==
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-6.1.1.tgz#855ba63ed40847c55e061ac13f55ee5f6435b723"
+  integrity sha512-r93gKnR6ZC2O8F3JrS0AAGIQ0v0OhXuyg4DAj2oG7K+GPkwXfUSc3ZcWeu50AsV5yIc6xxnTjERipJ6EvSw2vg==
 
 webidl-conversions@^5.0.0:
   version "5.0.0"
