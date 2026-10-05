@@ -2905,12 +2905,12 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/jest-image-snapshot@^6.4.0":
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/@types/jest-image-snapshot/-/jest-image-snapshot-6.4.1.tgz#a64c4faf782ba466193563bda082017ecbaaa0cf"
-  integrity sha512-pj3Sdc7Cx5mMLUttPprazSDQCur2cr512Dm38e9aAHI55LDxEhqdyqzK9myC4EmEy7sPAF2nGJ8zifX4qso7sQ==
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/@types/jest-image-snapshot/-/jest-image-snapshot-6.4.2.tgz#2e463a2926856aeae1a61e536ffd8855514fb455"
+  integrity sha512-w439RR3cs0GOMc8PMDqQwgazq85Rz4d8wt+rsM6i+4qYK5ziNZBVj7yMV6SzfLoq6D8FX4zltuWVWRtFmC1/Aw==
   dependencies:
     "@types/jest" "*"
-    "@types/pixelmatch" "*"
+    "@types/pixelmatch" "<7"
     ssim.js "^3.1.1"
 
 "@types/jest@*":
@@ -2956,7 +2956,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.55.tgz#c329cbd434c42164f846b909bd6f85b5537f6240"
   integrity sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==
 
-"@types/pixelmatch@*":
+"@types/pixelmatch@<7":
   version "5.2.6"
   resolved "https://registry.yarnpkg.com/@types/pixelmatch/-/pixelmatch-5.2.6.tgz#fba6de304ac958495f27d85989f5c6bb7499a686"
   integrity sha512-wC83uexE5KGuUODn6zkm9gMzTwdY5L0chiK+VrKcDfEjzxh1uadlWTvOmAbCpnM9zx/Ww3f8uKlYQVnO/TrqVg==
